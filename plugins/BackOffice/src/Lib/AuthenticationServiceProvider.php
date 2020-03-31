@@ -65,7 +65,7 @@ class AuthenticationServiceProvider implements AuthenticationServiceProviderInte
             'resolver' => [
                 'className' => 'Authentication.Orm',
                 'userModel' => 'Users',
-                'finder' => 'all'
+                'finder' => 'admins'
             ]
         ]);
 

@@ -65,6 +65,7 @@ class CreateUserCommand extends Command
     {
         $user = new User();
         $user->name = $args->getOption('name');
+        $user->type = User::ROOT;
         $user->email = $args->getArgument('email');
         $user->password = $args->getArgument('password');
 

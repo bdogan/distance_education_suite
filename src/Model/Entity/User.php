@@ -21,6 +21,19 @@ use Cake\ORM\Entity;
  */
 class User extends Entity
 {
+    // Type
+    const ROOT = 'root';
+    const ADMIN = 'admin';
+    const USER = 'user';
+
+    public static function adminTypes()
+    {
+        return [
+            self::ROOT,
+            self::ADMIN
+        ];
+    }
+
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *
