@@ -1,0 +1,30 @@
+{
+  "name": "distance_education_suite",
+  "version": "1.0.0",
+  "description": "A web application for who wants to make distance education. It uses Vimeo for video storage.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdogan/distance_education_suite.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bdogan/distance_education_suite/issues"
+  },
+  "homepage": "https://github.com/bdogan/distance_education_suite#readme",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.1"
+  },
+  "devDependencies": {
+    "sass": "^1.26.3"
+  }
+}

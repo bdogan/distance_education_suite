@@ -16,6 +16,7 @@ declare(strict_types=1);
  */
 namespace App;
 
+use BackOffice\Plugin;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
@@ -39,6 +40,8 @@ class Application extends BaseApplication
      */
     public function bootstrap(): void
     {
+        $this->addPlugin('BackOffice');
+
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 
@@ -53,6 +56,9 @@ class Application extends BaseApplication
         if (Configure::read('debug')) {
             $this->addPlugin('DebugKit');
         }
+
+        // Add backoffice
+        $this->addPlugin(Plugin::class);
 
         // Load more plugins here
         $this->addPlugin('AssetCompress');

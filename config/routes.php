@@ -82,7 +82,7 @@ $routes->scope('/', function (RouteBuilder $builder) {
      * You can remove these routes once you've connected the
      * routes you want in your application.
      */
-    $builder->fallbacks();
+    // $builder->fallbacks();
 });
 
 /*
