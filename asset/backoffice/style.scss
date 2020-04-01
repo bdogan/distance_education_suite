@@ -3,24 +3,45 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
 /** Header **/
-.bo-navbar {
+.bo-navbar.navbar-dark {
     background-color: $header-bg-color;
     color: $yiq-text-light;
 
-    .nav-link {
-        color: $header-color;
+    .nav-item {
 
-        &:hover {
-            color: darken($header-color, 20%);
+        &.show {
+            background-color: darken($header-bg-color, 5%);
         }
+
+        .nav-link {
+            color: $header-color;
+            padding: 1rem .75rem;
+        }
+
+        .nav-link:hover,
+        &.show .nav-link {
+            color: darken($header-color, 10%);
+        }
+
+        .dropdown-item i.material-icons-round {
+            margin-right: .5rem;
+        }
+
     }
+
 
     .navbar-brand svg {
         fill: $header-color;
     }
 
     .dropdown-menu {
-        margin-top: 1rem;
+        margin-top: 2px;
+    }
+}
+@media (min-width: map-get($grid-breakpoints, "md")) {
+    .bo-navbar {
+        padding-top: 0;
+        padding-bottom: 0;
     }
 }
 
@@ -77,20 +98,81 @@
     }
 }
 
+/** Main container **/
+.bo-main-container {
+    padding-top: 40px;
+}
+
+/** Table **/
+.bo-index {
+    .bo-index-title {
+        color: $gray-800;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    table {
+        td.actions {
+            text-align: right;
+            width: 112px;
+        }
+
+        thead a {
+            color: inherit;
+
+            &:after {
+                content: ' ';
+                position: relative;
+                left: 5px;
+                border: 6px solid transparent;
+            }
+
+            &.desc:after {
+                top: 12px;
+                border-top-color: $gray-500;
+            }
+
+            &.asc:after {
+                bottom: 12px;
+                border-bottom-color: $gray-500;
+            }
+        }
+    }
+
+}
+
+
 /** Material Icons **/
 
 /* Rules for sizing the icon. */
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }
+.material-icons-round.md-16 { font-size: 16px; }
+.material-icons-round.md-18 { font-size: 18px; }
+.material-icons-round.md-20 { font-size: 20px; }
+.material-icons-round.md-24 { font-size: 24px; }
+.material-icons-round.md-26 { font-size: 26px; }
+.material-icons-round.md-28 { font-size: 28px; }
+.material-icons-round.md-30 { font-size: 30px; }
+.material-icons-round.md-32 { font-size: 32px; }
+.material-icons-round.md-34 { font-size: 34px; }
+.material-icons-round.md-36 { font-size: 36px; }
+.material-icons-round.md-48 { font-size: 48px; }
 
 /* Rules for using icons as black on a light background. */
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
-.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+.material-icons-round.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons-round.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
 
 /* Rules for using icons as white on a dark background. */
-.material-icons.md-light { color: rgba(255, 255, 255, 1); }
-.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+.material-icons-round.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons-round.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 
-.material-icons { vertical-align: -6px; margin-right: .25rem; }
+.material-icons-round {
+    vertical-align: text-bottom;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}

@@ -98,7 +98,7 @@ class BackOfficeHelper extends Helper
      */
     public function icon(string $name, string $class = null)
     {
-        $_class = 'material-icons';
+        $_class = 'material-icons-round';
         if ($class) $_class .= ' ' . $class;
         return $this->Html->tag('i', $name, [ 'class' => $_class ]);
     }

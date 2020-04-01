@@ -31,9 +31,18 @@ class Plugin extends BasePlugin
         'prefix' => '/bo',
         'home_page' => 'bo_home',
         'pages' => [
-            'bo_home' => [ 'get', '/', [ 'controller' => 'Dashboard', 'action' => 'index', 'home' ] ],
-            'bo_login' => [ [ 'get', 'post' ], '/users/login', [ 'controller' => 'Users', 'action' => 'login' ] ],
-            'bo_logout' => [ 'get', '/users/logout', [ 'controller' => 'Users', 'action' => 'logout' ] ]
+            // Static pages
+            'bo_home' => [ '/', [ 'controller' => 'Dashboard', 'action' => 'index', 'home' ] ],
+            'bo_login' => [ '/users/login', [ 'controller' => 'Users', 'action' => 'login' ] ],
+            'bo_logout' => [ '/users/logout', [ 'controller' => 'Users', 'action' => 'logout' ] ],
+
+            // DLS
+            'bo_class_rooms' => [ '/class_rooms', [ 'controller' => 'ClassRooms', 'action' => 'index' ] ],
+            'bo_class_room_view' => [ '/class_room/{id}', [ 'controller' => 'ClassRooms', 'action' => 'view', 'plugin' => 'BackOffice' ], [ 'pass' => [ 'id' ] ] ],
+            'bo_class_room_add' => [ '/class_room/new', [ 'controller' => 'ClassRooms', 'action' => 'add' ] ],
+            'bo_class_room_edit' => [ '/class_room/{id}/edit', [ 'controller' => 'ClassRooms', 'action' => 'edit' ], [ 'pass' => [ 'id' ] ] ],
+            'bo_class_room_delete' => [ '/class_room/{id}/delete', [ 'controller' => 'ClassRooms', 'action' => 'delete' ], [ 'pass' => [ 'id' ] ] ]
+
         ]
     ];
 
@@ -87,7 +96,7 @@ class Plugin extends BasePlugin
     public function getRoute($name)
     {
         $page = $this->getPage($name);
-        return $page[2];
+        return $page[1];
     }
 
     /**
@@ -112,7 +121,7 @@ class Plugin extends BasePlugin
     public function getHomeRoute()
     {
         $homePage = $this->getHomePage();
-        return Router::url($homePage[2]);
+        return Router::url($homePage[1]);
     }
 
     /**
@@ -149,10 +158,18 @@ class Plugin extends BasePlugin
                 // Set routes
                 $pages = $this->getPages();
                 foreach ($pages as $name => $page) {
+                    $options = [ '_name' => $name ];
+                    if (!isset($page[2])) $page[2] = [];
+                    $builder->connect($page[0], $page[1], $options + $page[2]);
+                    /*
                     $methods = is_array($page[0]) ? $page[0] : [ $page[0] ];
                     foreach ($methods as $method) {
-                        $builder->{$method}($page[1], $page[2], (!$builder->nameExists($name) ? $name : $name . '_' . $method));
-                    }
+                        $result = $builder->{$method}($page[1], $page[2], (!$builder->nameExists($name) ? $name : $name . '_' . $method));
+                        if (isset($page[3])) {
+                            $result = $result->setPass(array_keys($page[3]));
+                            $result->setPatterns(array_values($page[3]));
+                        }
+                    }*/
                 }
             }
         );

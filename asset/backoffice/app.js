@@ -1,6 +1,23 @@
-console.log('asd');
+/**
+ * Realistic Menu
+ */
+$('.bo-navbar ul.bo-main-menu > li.nav-item.dropdown > a').realisticMenu();
+
+/**
+ * Activate Tooltips
+ */
+$('[data-toggle="tooltip"]').tooltip();
 
 
-if (true === false) {
-    console.log('dddd');
-}
+/**
+ * Toast
+ */
+
+$('.toast')
+    .on('hidden.bs.toast', function () {
+        $(this).toast('dispose').remove();
+    })
+    .toast({
+        delay: 4000
+    })
+    .toast('show');

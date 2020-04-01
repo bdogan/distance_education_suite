@@ -36,6 +36,7 @@ class AppController extends Controller
         // Load components
         $this->loadComponent('Authentication.Authentication');
         $this->loadComponent('Flash');
+        $this->loadComponent('Paginator');
 
         // Set BackOffice
         $this->BackOffice = Configure::read('BackOffice');
