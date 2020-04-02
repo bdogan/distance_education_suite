@@ -23,8 +23,6 @@ class CreateLessonTopicFiles extends AbstractMigration
             ->addColumn('notes', 'string', [ 'limit' => 255, 'null' => true ])
             ->addColumn('created', 'datetime')
             ->addColumn('modified', 'datetime', [ 'null' => true ])
-            ->addIndex([ 'lesson_topic_id' ])
-            ->addIndex([ 'lesson_topic_id', 'name' ], [ 'unique' => true ])
             ->create();
     }
 }

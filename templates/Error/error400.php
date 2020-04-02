@@ -31,8 +31,7 @@ if (Configure::read('debug')) :
 $this->end();
 endif;
 ?>
-<h2><?= h($message) ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
-</p>
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading"><?= h($message) ?></h4>
+    <p class="mb-0"><strong><?= __d('cake', 'Hata') ?>: </strong><?= __d('cake', 'Adres {0} sunucuda bulunamadı.', "<strong>'{$url}'</strong>") ?></p>
+</div>

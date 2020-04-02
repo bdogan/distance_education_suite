@@ -22,9 +22,6 @@ class CreateLessonTopics extends AbstractMigration
             ->addColumn('notes', 'text', [ 'null' => true ])
             ->addColumn('created', 'datetime')
             ->addColumn('modified', 'datetime', [ 'null' => true ])
-            ->addIndex([ 'class_room_id' ])
-            ->addIndex([ 'class_room_id', 'lesson' ])
-            ->addIndex([ 'class_room_id', 'lesson', 'subject' ], [ 'unique' => true ])
             ->create();
     }
 }

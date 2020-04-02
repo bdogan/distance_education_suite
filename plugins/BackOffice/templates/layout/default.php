@@ -18,6 +18,7 @@
 <body>
     <?= $this->element('navigation'); ?>
     <div class="container-lg bo-main-container">
+        <?= $this->element('breadcrumbs'); ?>
         <?= $this->Flash->render(); ?>
         <?= $this->fetch('content') ?>
     </div>

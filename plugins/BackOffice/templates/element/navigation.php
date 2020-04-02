@@ -21,11 +21,8 @@
                         Sınıflar
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <?= $this->Html->link('Sınıf Listesi', [ '_name' => 'bo_class_rooms' ], [ 'class' => 'dropdown-item' ]); ?>
-                        <a class="dropdown-item" href="#">Sınıflar</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <?= $this->Html->link('Liste', [ '_name' => 'bo_class_rooms' ], [ 'class' => 'dropdown-item' ]); ?>
+                        <?= $this->Html->link('Yeni Ekle', [ '_name' => 'bo_class_room_add' ], [ 'class' => 'dropdown-item' ]); ?>
                     </div>
                 </li>
                 <li class="nav-item dropdown">

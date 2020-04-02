@@ -28,7 +28,7 @@ class Plugin extends BasePlugin
      * @var array
      */
     protected $_defaultConfig = [
-        'prefix' => '/bo',
+        'prefix' => '/panel',
         'home_page' => 'bo_home',
         'pages' => [
             // Static pages
@@ -38,7 +38,7 @@ class Plugin extends BasePlugin
 
             // DLS
             'bo_class_rooms' => [ '/class_rooms', [ 'controller' => 'ClassRooms', 'action' => 'index' ] ],
-            'bo_class_room_view' => [ '/class_room/{id}', [ 'controller' => 'ClassRooms', 'action' => 'view', 'plugin' => 'BackOffice' ], [ 'pass' => [ 'id' ] ] ],
+            'bo_class_room_view' => [ '/class_room/{id}', [ 'controller' => 'ClassRooms', 'action' => 'view' ], [ 'pass' => [ 'id' ] ] ],
             'bo_class_room_add' => [ '/class_room/new', [ 'controller' => 'ClassRooms', 'action' => 'add' ] ],
             'bo_class_room_edit' => [ '/class_room/{id}/edit', [ 'controller' => 'ClassRooms', 'action' => 'edit' ], [ 'pass' => [ 'id' ] ] ],
             'bo_class_room_delete' => [ '/class_room/{id}/delete', [ 'controller' => 'ClassRooms', 'action' => 'delete' ], [ 'pass' => [ 'id' ] ] ]

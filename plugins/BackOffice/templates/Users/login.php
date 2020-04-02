@@ -26,7 +26,7 @@
                         <?= $this->Form->create(); ?>
                             <?= $this->Form->control('email', [ 'type' => 'email', 'label' => false, 'placeholder' => 'E-posta', 'container' => [ 'class' => 'mb-3' ] ]) ?>
                             <?= $this->Form->control('password', [ 'type' => 'password', 'label' => false, 'placeholder' => 'Şifre', 'container' => [ 'class' => 'mb-3' ] ]) ?>
-                            <?= $this->Form->control('remember_me', [ 'type' => 'checkbox', 'label' => 'Remember me' ]) ?>
+                            <?= $this->Form->control('remember_me', [ 'type' => 'checkbox', 'label' => 'Beni hatırla' ]) ?>
                             <div class="d-flex justify-content-end">
                                 <?= $this->Form->button(__('Giriş'), [ 'class' => 'btn btn-primary' ]); ?>
                             </div>

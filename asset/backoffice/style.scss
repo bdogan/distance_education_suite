@@ -113,6 +113,7 @@
     }
 
     table {
+
         td.actions {
             text-align: right;
             width: 112px;
@@ -137,11 +138,30 @@
                 bottom: 12px;
                 border-bottom-color: $gray-500;
             }
+
+        }
+
+        thead th {
+            border-top: none;
         }
     }
 
 }
 
+/** Pagination **/
+.pagination .has-icon {
+    a.page-link {
+        i.material-icons-round {
+            font-weight: 900;
+        }
+        padding: 0.5rem 0.5rem;
+    }
+}
+
+/** Breadcrumb **/
+.breadcrumb {
+    margin-top: -1.5rem;
+}
 
 /** Material Icons **/
 

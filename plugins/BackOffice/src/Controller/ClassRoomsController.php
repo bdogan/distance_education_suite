@@ -13,8 +13,17 @@ use BackOffice\Controller\AppController;
  */
 class ClassRoomsController extends AppController
 {
-
+    /**
+     * @var string
+     */
     public $modelClass = 'ClassRooms';
+
+    /**
+     * @var array
+     */
+    public $paginate = [
+        'limit' => 10
+    ];
 
     /**
      * Index method

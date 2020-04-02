@@ -19,7 +19,6 @@ class CreateClassRooms extends AbstractMigration
             ->addColumn('name', 'string', [ 'limit' => 255 ])
             ->addColumn('created', 'datetime')
             ->addColumn('modified', 'datetime', [ 'null' => true ])
-            ->addIndex('name', [ 'unique' => true ])
             ->create();
     }
 }
