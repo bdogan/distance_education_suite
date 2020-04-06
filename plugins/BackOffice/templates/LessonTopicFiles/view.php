@@ -31,7 +31,7 @@ $this->Breadcrumbs->add(
                 ['action' => 'delete', 'lesson_topic_id' => $lesson->id, 'id' => $lessonTopicFile->id],
                 ['confirm' => __('Are you sure you want to delete # {0}?', $lessonTopicFile->id), 'class' => 'list-group-item list-group-item-action border-top-0']
                 ) ?>
-                <?= $this->Html->link(__('List Lesson Topic File'), [ 'action' => 'index', $lesson->id ], [ 'class' => 'list-group-item list-group-item-action' ]) ?>
+                <?= $this->Html->link(__('List Lesson Topic Files'), [ 'action' => 'index', $lesson->id ], [ 'class' => 'list-group-item list-group-item-action' ]) ?>
                 <?= $this->Html->link(__('New Lesson Topic File'), [ 'action' => 'add', $lesson->id ], ['class' => 'list-group-item list-group-item-action']) ?>
             </div>
     </aside>

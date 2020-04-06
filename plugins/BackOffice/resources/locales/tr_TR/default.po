@@ -416,3 +416,5 @@ msgstr "Profili Düzenle"
 msgid "Giriş"
 msgstr "Giriş"
 
+msgid "Password"
+msgstr "Şifre"

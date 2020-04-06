@@ -22,7 +22,7 @@ $this->Breadcrumbs->add(
     <?php if (!$lessonTopicFiles->count()): ?>
     <div class="col-12 mb-2">
         <div class="jumbotron text-center">
-            <h1 class="display-4"><?= __('Lesson Topic Files') ?></h1>
+            <h1 class="display-4"><?= __('List Lesson Topic Files') ?></h1>
             <p class="lead">Kayıtlı bir veri bulamadık. Veri eklediğinizde burada görüntülenecektir.</p>
             <hr class="my-4">
             <p>Hemen bir tane oluşturmak için alttaki linke tıklayın.</p>
@@ -32,7 +32,7 @@ $this->Breadcrumbs->add(
     <?php else: ?>
     <div class="col-12 mb-2">
         <div class="row">
-            <h4 class="col-6 bo-index-title"><?= $this->BackOffice->icon('view_list', 'md-26') ?> <?= __('Lesson Topic Files') ?></h4>
+            <h4 class="col-6 bo-index-title"><?= $this->BackOffice->icon('view_list', 'md-26') ?> <?= __('List Lesson Topic Files') ?></h4>
             <div class="col-6 bo-index-actions text-right">
                 <?= $this->Html->link($this->BackOffice->icon('add_box', 'md-18 mr-1') . __('New Lesson Topic File'), ['action' => 'add', $lesson->id], ['class' => 'btn btn-primary', 'escape' => false]) ?>
             </div>
