@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
+use App\Model\Entity\ClassRoom;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -11,7 +11,7 @@ use Cake\Validation\Validator;
 /**
  * ClassRooms Model
  *
- * @property \App\Model\Table\LessonSubjectsTable&\Cake\ORM\Association\HasMany $LessonSubjects
+ * @property \App\Model\Table\LessonTopicsTable&\Cake\ORM\Association\HasMany $LessonTopics
  * @property \App\Model\Table\StudentsTable&\Cake\ORM\Association\HasMany $Students
  *
  * @method \App\Model\Entity\ClassRoom newEmptyEntity()
@@ -48,11 +48,11 @@ class ClassRoomsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->hasMany('LessonSubjects', [
+        $this->hasMany('LessonTopics', [
             'foreignKey' => 'class_room_id',
         ]);
         $this->hasMany('Students', [
-            'foreignKey' => 'class_room_id',
+            'foreignKey' => 'class_room_id'
         ]);
     }
 
@@ -88,6 +88,9 @@ class ClassRoomsTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->isUnique(['name']));
+
+        $rules->addDelete($rules->isNotLinkedTo('Students', 'students'));
+        $rules->addDelete($rules->isNotLinkedTo('LessonTopics', 'lesson_topic'));
 
         return $rules;
     }

@@ -6,6 +6,7 @@ namespace BackOffice\Controller;
 use BackOffice\View\BackOfficeView;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
+use Cake\I18n\I18n;
 
 /**
  * Class AppController

@@ -14,7 +14,7 @@ class CreateLessonTopics extends AbstractMigration
      */
     public function change()
     {
-        $lessons = $this->table('lesson_subjects');
+        $lessons = $this->table('lesson_topics');
         $lessons
             ->addColumn('class_room_id', 'integer')
             ->addColumn('lesson', 'string', [ 'limit' => 100 ])

@@ -40,6 +40,7 @@ class Application extends BaseApplication
      */
     public function bootstrap(): void
     {
+
         $this->addPlugin('BackOffice');
 
         // Call parent to load bootstrap from files.

@@ -17,7 +17,7 @@ class CreateUsers extends AbstractMigration
         $users = $this->table('users');
         $users
             ->addColumn('name', 'string', [ 'limit' => 60 ])
-            ->addColumn('email', 'string', [ 'limit' => 100 ])
+            ->addColumn('email', 'string', [ 'limit' => 100, 'null' => true, 'default' => null ])
             ->addColumn('password', 'string', [ 'limit' => 255 ])
             ->addColumn('type', 'enum', [ 'values' => [ 'root', 'admin', 'user' ], 'default' => 'user' ])
             ->addColumn('is_active', 'boolean', [ 'default' => true ])

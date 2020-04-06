@@ -1,0 +1,192 @@
+#: Controller/ClassRoomsController.php:67
+#: Controller/ClassRoomsController.php:91
+msgid "The class room has been saved."
+msgstr "Sınıf kaydedildi"
+
+#: Controller/ClassRoomsController.php:71
+#: Controller/ClassRoomsController.php:95
+msgid "The class room could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/ClassRoomsController.php:112
+msgid "The class room has been deleted."
+msgstr ""
+
+#: Controller/ClassRoomsController.php:114
+msgid "The class room could not be deleted. Please, try again."
+msgstr ""
+
+#: Controller/StudentsController.php:66
+#: Controller/StudentsController.php:97
+msgid "The student has been saved."
+msgstr ""
+
+#: Controller/StudentsController.php:70
+#: Controller/StudentsController.php:101
+msgid "The student could not be saved. Please, try again."
+msgstr ""
+
+#: Controller/StudentsController.php:119
+msgid "The student has been deleted."
+msgstr ""
+
+#: Controller/StudentsController.php:121
+msgid "The student could not be deleted. Please, try again."
+msgstr ""
+
+#: ClassRooms/add.php:18
+#: ClassRooms/edit.php:18
+#: ClassRooms/view.php:18
+#: Students/add.php:18
+#: Students/edit.php:18
+#: Students/view.php:19
+msgid "Actions"
+msgstr ""
+
+#: ClassRooms/add.php:19
+#: ClassRooms/edit.php:24
+#: ClassRooms/view.php:25
+msgid "List Class Rooms"
+msgstr ""
+
+#: ClassRooms/add.php:25
+msgid "Add Class Room"
+msgstr ""
+
+#: ClassRooms/add.php:30
+#: ClassRooms/edit.php:35
+#: Students/add.php:43
+#: Students/edit.php:52
+msgid "Submit"
+msgstr ""
+
+#: ClassRooms/edit.php:20
+#: ClassRooms/view.php:21
+#: Students/edit.php:20
+msgid "Delete"
+msgstr ""
+
+#: ClassRooms/edit.php:22
+#: ClassRooms/view.php:23
+#: Students/edit.php:22
+#: Students/view.php:24
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: ClassRooms/edit.php:30
+#: ClassRooms/view.php:19
+msgid "Edit Class Room"
+msgstr "Sınıf Düzenle"
+
+#: ClassRooms/index.php:50
+#: Students/index.php:54
+msgid "{0} no`lu kayıt silinecek emin misiniz?"
+msgstr ""
+
+#: ClassRooms/index.php:62
+#: Students/index.php:66
+msgid "{{count}} kayıt arasından {{current}} kayıt gösteriliyor. Sayfa {{page}} / {{pages}}"
+msgstr ""
+
+#: ClassRooms/index.php:66
+#: Students/index.php:70
+msgid "first"
+msgstr ""
+
+#: ClassRooms/index.php:67
+#: Students/index.php:71
+msgid "previous"
+msgstr ""
+
+#: ClassRooms/index.php:69
+#: Students/index.php:73
+msgid "next"
+msgstr ""
+
+#: ClassRooms/index.php:70
+#: Students/index.php:74
+msgid "last"
+msgstr ""
+
+#: ClassRooms/view.php:26
+msgid "New Class Room"
+msgstr ""
+
+#: ClassRooms/view.php:37
+#: Students/view.php:42
+msgid "Name"
+msgstr ""
+
+#: ClassRooms/view.php:41
+#: Students/view.php:38
+msgid "Id"
+msgstr ""
+
+#: ClassRooms/view.php:45
+#: Students/view.php:54
+msgid "Created"
+msgstr ""
+
+#: ClassRooms/view.php:49
+#: Students/view.php:58
+msgid "Modified"
+msgstr ""
+
+#: Students/add.php:8
+#: Students/add.php:19
+#: Students/edit.php:8
+#: Students/edit.php:24
+#: Students/view.php:8
+msgid "List Students"
+msgstr ""
+
+#: Students/add.php:12
+#: Students/add.php:25
+msgid "Add Student"
+msgstr ""
+
+#: Students/edit.php:12
+#: Students/edit.php:30
+#: Students/view.php:20
+msgid "Edit Student"
+msgstr ""
+
+#: Students/edit.php:53
+msgid "Change Password"
+msgstr ""
+
+#: Students/index.php:11
+#: Students/index.php:21
+msgid "Students"
+msgstr ""
+
+#: Students/index.php:15
+#: Students/index.php:23
+#: Students/view.php:27
+msgid "New Student"
+msgstr ""
+
+#: Students/view.php:22
+msgid "Delete Student"
+msgstr ""
+
+#: Students/view.php:26
+msgid "List Student"
+msgstr ""
+
+#: Students/view.php:46
+msgid "Class Room"
+msgstr ""
+
+#: Students/view.php:50
+msgid "Email"
+msgstr ""
+
+#: Users/login.php:31
+msgid "Giriş"
+msgstr ""
+
+#: View/Helper/PaginatorHelper.php:1266
+msgid "View"
+msgstr ""
+

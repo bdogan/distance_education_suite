@@ -4,6 +4,8 @@
  *
  * @var \BackOffice\View\BackOfficeView $this
  */
+
+$this->disableAutoLayout();
 ?>
 <!doctype html>
 <html lang="tr">

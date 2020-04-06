@@ -15,6 +15,7 @@ use Cake\Http\Middleware\EncryptedCookieMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
+use Cake\Utility\Inflector;
 
 /**
  * Plugin for BackOffice
@@ -22,29 +23,14 @@ use Cake\Routing\Router;
 class Plugin extends BasePlugin
 {
 
+    const ROUTE_PREFIX = 'bo_';
+
     use InstanceConfigTrait;
 
     /**
      * @var array
      */
-    protected $_defaultConfig = [
-        'prefix' => '/panel',
-        'home_page' => 'bo_home',
-        'pages' => [
-            // Static pages
-            'bo_home' => [ '/', [ 'controller' => 'Dashboard', 'action' => 'index', 'home' ] ],
-            'bo_login' => [ '/users/login', [ 'controller' => 'Users', 'action' => 'login' ] ],
-            'bo_logout' => [ '/users/logout', [ 'controller' => 'Users', 'action' => 'logout' ] ],
-
-            // DLS
-            'bo_class_rooms' => [ '/class_rooms', [ 'controller' => 'ClassRooms', 'action' => 'index' ] ],
-            'bo_class_room_view' => [ '/class_room/{id}', [ 'controller' => 'ClassRooms', 'action' => 'view' ], [ 'pass' => [ 'id' ] ] ],
-            'bo_class_room_add' => [ '/class_room/new', [ 'controller' => 'ClassRooms', 'action' => 'add' ] ],
-            'bo_class_room_edit' => [ '/class_room/{id}/edit', [ 'controller' => 'ClassRooms', 'action' => 'edit' ], [ 'pass' => [ 'id' ] ] ],
-            'bo_class_room_delete' => [ '/class_room/{id}/delete', [ 'controller' => 'ClassRooms', 'action' => 'delete' ], [ 'pass' => [ 'id' ] ] ]
-
-        ]
-    ];
+    protected $_defaultConfig;
 
     /**
      * Init
@@ -52,6 +38,36 @@ class Plugin extends BasePlugin
     public function initialize(): void
     {
         parent::initialize();
+
+        $this->_defaultConfig = [
+            'prefix' => '/panel',
+            'home_page' => 'bo_home',
+            'pages' => [
+                // Static pages
+                'bo_home' => [ '/', [ 'controller' => 'Dashboard', 'action' => 'index', 'home' ] ],
+                'bo_login' => [ '/users/login', [ 'controller' => 'Users', 'action' => 'login' ] ],
+                'bo_logout' => [ '/users/logout', [ 'controller' => 'Users', 'action' => 'logout' ] ],
+                'bo_profile' => [ '/profile', [ 'controller' => 'Users', 'action' => 'profile' ] ],
+                'bo_profile_edit' => [ '/profile/edit', [ 'controller' => 'Users', 'action' => 'edit_profile' ] ],
+                'bo_change_password' => [ '/profile/change_password', [ 'controller' => 'Users', 'action' => 'change_password' ] ]
+            ]
+
+        ];
+
+        // CRUDs
+        $this->addCrud('class_rooms');
+        $this->addCrud('students');
+        $this->addCrud('lesson_topics');
+        $this->addCrud('lesson_topic_files', [
+            'actions' => [ 'index', 'view', 'add', 'delete', 'show' ],
+            'prepend' => '/lesson_topics/{lesson_topic_id}',
+            'pass' => [ 'lesson_topic_id' ],
+            'routes' => [
+                'singular' => 'file',
+                'plural' => 'files'
+            ]
+        ]);
+
         Configure::write('BackOffice', $this);
     }
 
@@ -108,6 +124,58 @@ class Plugin extends BasePlugin
     }
 
     /**
+     * @param $name
+     * @param $options
+     */
+    public function setPage($name, $options)
+    {
+        $this->setConfig('pages.' . $name, $options);
+    }
+
+    /**
+     * @param $pluralName
+     * @param array $actions
+     */
+    public function addCrud($pluralName, $options = [])
+    {
+        $singularName = Inflector::singularize($pluralName);
+        $controllerName = Inflector::pluralize(Inflector::classify($singularName));
+
+        $options = array_replace([
+            'actions' => [ 'index', 'view', 'add', 'edit', 'delete' ],
+            'prepend' => '',
+            'pass' => [],
+            'routes' => [
+                'singular' => $singularName,
+                'plural' => $pluralName
+            ]
+        ], $options);
+
+        foreach ( $options['actions'] as $action ) {
+            $name = self::ROUTE_PREFIX . ($action === 'index' ? $pluralName : ($singularName . '_' . $action));
+            switch ($action) {
+                case 'index':
+                    $this->setPage($name, [ $options['prepend'] . '/' . $options['routes']['plural'], [ 'controller' => $controllerName, 'action' => $action ], [ 'pass' => $options['pass'] ] ]);
+                    break;
+                case 'view':
+                    $this->setPage($name, [ $options['prepend'] . '/' . $options['routes']['singular'] . '/{id}', [ 'controller' => $controllerName, 'action' => $action ], [ 'pass' => array_merge([ 'id' ], $options['pass']), 'id' => '[0-9]+' ] ]);
+                    break;
+                case 'add':
+                    $this->setPage($name, [ $options['prepend'] . '/' . $options['routes']['singular'] . '/new', [ 'controller' => $controllerName, 'action' => $action ], [ 'pass' => $options['pass'] ] ]);
+                    break;
+                case 'edit':
+                    $this->setPage($name, [ $options['prepend'] . '/' . $options['routes']['singular'] . '/{id}/edit', [ 'controller' => $controllerName, 'action' => $action ], [ 'pass' => array_merge([ 'id' ], $options['pass']), 'id' => '[0-9]+' ] ]);
+                    break;
+                case 'delete':
+                    $this->setPage($name, [ $options['prepend'] . '/' . $options['routes']['singular'] . '/{id}/delete', [ 'controller' => $controllerName, 'action' => $action ], [ 'pass' => array_merge([ 'id' ], $options['pass']), 'id' => '[0-9]+' ] ]);
+                    break;
+                default:
+                    $this->setPage($name, [ $options['prepend'] . '/' . $options['routes']['singular'] . '/{id}/' . $action, [ 'controller' => $controllerName, 'action' => $action ], [ 'pass' => array_merge([ 'id' ], $options['pass']), 'id' => '[0-9]+' ] ]);
+            }
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function getHomePage()
@@ -161,15 +229,6 @@ class Plugin extends BasePlugin
                     $options = [ '_name' => $name ];
                     if (!isset($page[2])) $page[2] = [];
                     $builder->connect($page[0], $page[1], $options + $page[2]);
-                    /*
-                    $methods = is_array($page[0]) ? $page[0] : [ $page[0] ];
-                    foreach ($methods as $method) {
-                        $result = $builder->{$method}($page[1], $page[2], (!$builder->nameExists($name) ? $name : $name . '_' . $method));
-                        if (isset($page[3])) {
-                            $result = $result->setPass(array_keys($page[3]));
-                            $result->setPatterns(array_values($page[3]));
-                        }
-                    }*/
                 }
             }
         );

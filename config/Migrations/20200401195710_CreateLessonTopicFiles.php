@@ -14,15 +14,16 @@ class CreateLessonTopicFiles extends AbstractMigration
      */
     public function change()
     {
-        $lessons = $this->table('lessons');
+        $lessons = $this->table('lesson_topic_files');
         $lessons
             ->addColumn('lesson_topic_id', 'integer')
             ->addColumn('name', 'string', [ 'limit' => 100 ])
-            ->addColumn('type', 'string', [ 'limit' => 10 ])
+            ->addColumn('type', 'string', [ 'limit' => 45 ])
             ->addColumn('size', 'integer')
             ->addColumn('notes', 'string', [ 'limit' => 255, 'null' => true ])
             ->addColumn('created', 'datetime')
             ->addColumn('modified', 'datetime', [ 'null' => true ])
+            ->addIndex([ 'name' ], [ 'unique' => true ])
             ->create();
     }
 }

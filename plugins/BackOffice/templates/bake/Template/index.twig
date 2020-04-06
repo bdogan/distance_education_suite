@@ -1,0 +1,110 @@
+{#
+/**
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @since         2.0.0
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ */
+#}
+<?php
+/**
+ * @var \Backoffice\View\BackOfficeView $this
+ * @var \{{ entityClass }}[]|\Cake\Collection\CollectionInterface ${{ pluralVar }}
+ */
+?>
+<div class="row bo-index {{ pluralVar }}">
+    <?php if (!${{ pluralVar }}->count()): ?>
+    <div class="col-12 mb-2">
+        <div class="jumbotron text-center">
+            <h1 class="display-4"><?= __('{{ pluralHumanName }}') ?></h1>
+            <p class="lead">Kayıtlı bir veri bulamadık. Veri eklediğinizde burada görüntülenecektir.</p>
+            <hr class="my-4">
+            <p>Hemen bir tane oluşturmak için alttaki linke tıklayın.</p>
+{% set fields = Bake.filterFields(fields, schema, modelObject, indexColumns, ['binary', 'text']) %}
+            <?= $this->Html->link(__('New {{ singularHumanName }}'), ['action' => 'add'], ['class' => 'btn btn-lg btn-primary']) ?>
+{% set done = [] %}
+        </div>
+    </div>
+    <?php else: ?>
+    <div class="col-12 mb-2">
+        <div class="row">
+            <h4 class="col-6 bo-index-title"><?= $this->BackOffice->icon('view_list', 'md-26') ?> <?= __('{{ pluralHumanName }}') ?></h4>
+            <div class="col-6 bo-index-actions text-right">
+{% set fields = Bake.filterFields(fields, schema, modelObject, indexColumns, ['binary', 'text']) %}
+                <?= $this->Html->link($this->BackOffice->icon('add_box', 'md-18 mr-1') . __('New {{ singularHumanName }}'), ['action' => 'add'], ['class' => 'btn btn-primary', 'escape' => false]) ?>
+{% set done = [] %}
+            </div>
+        </div>
+    </div>
+    <div class="col-12 mb-3">
+        <div class="card" style="min-height: 70vh;">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        {% for field in fields %}
+                            <th scope="col"><?= $this->Paginator->sort('{{ field }}') ?></th>
+                        {% endfor %}
+                        <th scope="col" class="actions"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach (${{ pluralVar }} as ${{ singularVar }}): ?>
+                <tr>
+{% for field in fields %}
+    {% set isKey = false %}
+    {% if associations.BelongsTo %}
+        {% for alias, details in associations.BelongsTo %}
+            {% if field == details.foreignKey %}
+                {% set isKey = true %}
+                                    <td><?= ${{ singularVar }}->has('{{ details.property }}') ? $this->Html->link(${{ singularVar }}->{{ details.property }}->{{ details.displayField }}, ['controller' => '{{ details.controller }}', 'action' => 'view', ${{ singularVar }}->{{ details.property }}->{{ details.primaryKey[0] }}]) : '' ?></td>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+{% if isKey is not same as(true) %}
+    {% set columnData = Bake.columnData(field, schema) %}
+    {% if columnData.type not in ['integer', 'float', 'decimal', 'biginteger', 'smallinteger', 'tinyinteger'] %}
+                                <td><?= h(${{ singularVar }}->{{ field }}) ?></td>
+    {% else %}
+                                <td><?= $this->Number->format(${{ singularVar }}->{{ field }}) ?></td>
+    {% endif %}
+    {% endif %}
+{% endfor %}
+{% set pk = '$' ~ singularVar ~ '->' ~ primaryKey[0] %}
+                    <td class="actions">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <?= $this->Html->link($this->BackOffice->icon('launch', 'md-16'), ['action' => 'view', {{ pk|raw }}], [ 'escape' => false, 'class' => 'btn btn-dark', 'title' => 'Göster', 'data-toggle' => 'tooltip' ]) ?>
+                            <?= $this->Html->link($this->BackOffice->icon('create', 'md-16'), ['action' => 'edit', {{ pk|raw }}], [ 'escape' => false, 'class' => 'btn btn-dark', 'title' => 'Düzenle', 'data-toggle' => 'tooltip' ]) ?>
+                            <?= $this->Form->postLink($this->BackOffice->icon('clear', 'md-16'), ['action' => 'delete', {{ pk|raw }}], [ 'confirm' => __('{0} no`lu kayıt silinecek emin misiniz?', {{ pk|raw }}), 'escape' => false, 'class' => 'btn btn-dark', 'title' => 'Sil', 'data-toggle' => 'tooltip' ]) ?>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row align-items-baseline">
+            <div class="col-sm-5 text-muted small d-none d-md-block">
+                <?= $this->Paginator->counter(__('{{ '{{' }}count{{ '}}' }} kayıt arasından {{ '{{' }}current{{ '}}' }} kayıt gösteriliyor. Sayfa {{ '{{' }}page{{ '}}' }} / {{ '{{' }}pages{{ '}}' }}')) ?>
+            </div>
+            <div class="col-md-7">
+                <ul class="pagination justify-content-end">
+                    <?= $this->Paginator->first('<< ' . __('first'), [ 'class' => 'page-item' ]) ?>
+                    <?= $this->Paginator->prev('< ' . __('previous')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('next') . ' >') ?>
+                    <?= $this->Paginator->last(__('last') . ' >>') ?>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+</div>

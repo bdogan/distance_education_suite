@@ -9,6 +9,7 @@
 /node_modules/*
 /webroot/css/*
 /webroot/js/*
+/uploads/*
 
 # OS generated files #
 ######################

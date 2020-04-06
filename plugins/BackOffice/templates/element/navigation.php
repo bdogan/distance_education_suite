@@ -30,10 +30,8 @@
                         Öğrenciler
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <?= $this->Html->link('Liste', [ '_name' => 'bo_students' ], [ 'class' => 'dropdown-item' ]); ?>
+                        <?= $this->Html->link('Yeni Ekle', [ '_name' => 'bo_student_add' ], [ 'class' => 'dropdown-item' ]); ?>
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -41,10 +39,8 @@
                         Dersler
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <?= $this->Html->link('Liste', [ '_name' => 'bo_lesson_topics' ], [ 'class' => 'dropdown-item' ]); ?>
+                        <?= $this->Html->link('Yeni Ekle', [ '_name' => 'bo_lesson_topic_add' ], [ 'class' => 'dropdown-item' ]); ?>
                     </div>
                 </li>
             </ul>
@@ -54,8 +50,8 @@
                         <?= $this->BackOffice->icon('person','md-18 d-none d-lg-inline-block') . ' ' . $this->Identity->get('name'); ?>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><?= $this->BackOffice->icon('account_circle', 'md-18') ?> Hesabım</a>
-                        <a class="dropdown-item" href="#"><?= $this->BackOffice->icon('lock', 'md-18') ?> Şifre Değiştir</a>
+                        <a class="dropdown-item" href="<?= $this->Url->build([ '_name' => 'bo_profile' ]); ?>"><?= $this->BackOffice->icon('account_circle', 'md-18') ?> Hesabım</a>
+                        <a class="dropdown-item" href="<?= $this->Url->build([ '_name' => 'bo_change_password' ]); ?>"><?= $this->BackOffice->icon('lock', 'md-18') ?> Şifre Değiştir</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?= $this->Url->build([ '_name' => 'bo_logout' ]); ?>"><?= $this->BackOffice->icon('exit_to_app', 'md-18') ?> Çıkış</a>
                     </div>

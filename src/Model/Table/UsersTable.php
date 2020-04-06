@@ -4,9 +4,12 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Entity\User;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Cake\Event\EventInterface;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Hash;
 use Cake\Validation\Validator;
 
 /**
@@ -47,6 +50,69 @@ class UsersTable extends Table
         $this->addBehavior('Timestamp');
     }
 
+    public function validationStudent(Validator $validator): Validator
+    {
+        $validator = $this->validationDefault($validator);
+
+        $validator->remove('email');
+
+        $validator
+            ->email('email')
+            ->allowEmptyString('email')
+            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+
+        return $validator;
+    }
+
+    /**
+     * @param \Cake\Validation\Validator $validator
+     *
+     * @return \Cake\Validation\Validator
+     */
+    public function validationChangePassword(Validator $validator): Validator
+    {
+        $validator
+            ->scalar('current_password')
+            ->maxLength('current_password', 40)
+            ->requirePresence('current_password')
+            ->notEmptyString('current_password')
+            ->add('current_password', [
+                'unique' => [
+                    'rule' => function($value, $context) {
+                        if ($value) {
+                            $id = Hash::get($context, 'data.id');
+                            if ($user = $this->get($id)) {
+                                $hasher = new DefaultPasswordHasher();
+                                return $hasher->check($value, $user->password);
+                            }
+                        }
+                        return true;
+                    },
+                    'message' => 'Şifre yanlış'
+                ]
+            ]);
+
+        $validator
+            ->scalar('new_password')
+            ->maxLength('new_password', 40)
+            ->requirePresence('new_password')
+            ->notEmptyString('new_password');
+
+        $validator
+            ->scalar('new_password_verify')
+            ->maxLength('new_password_verify', 40)
+            ->requirePresence('new_password_verify')
+            ->notEmptyString('new_password_verify')
+            ->add('new_password_verify', [
+                'type' => [
+                    'rule' => [ 'compareWith', 'new_password' ],
+                    'message' => 'Passwords are not equal'
+                ]
+            ]);
+
+        return $validator;
+    }
+
     /**
      * Default validation rules.
      *
@@ -78,12 +144,6 @@ class UsersTable extends Table
             ->notEmptyString('password');
 
         $validator
-            ->scalar('password_salt')
-            ->maxLength('password_salt', 40)
-            ->requirePresence('password_salt', 'create')
-            ->notEmptyString('password_salt');
-
-        $validator
             ->scalar('type')
             ->notEmptyString('type');
 
@@ -108,8 +168,25 @@ class UsersTable extends Table
         return $rules;
     }
 
+    /**
+     * @param \Cake\ORM\Query $query
+     * @param array $options
+     *
+     * @return \Cake\ORM\Query
+     */
     public function findAdmins(Query $query, array $options = [])
     {
         return $query->where([ 'type IN' => User::adminTypes() ]);
     }
+
+    /**
+     * @param \Cake\Event\EventInterface $event
+     * @param \App\Model\Entity\User $user
+     * @param \ArrayObject $options
+     */
+    public function beforeSave(EventInterface $event, User $user, \ArrayObject $options)
+    {
+        if (!$user->email) $user->email = null;
+    }
+
 }

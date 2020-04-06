@@ -97,3 +97,8 @@ define('CAKE', CORE_PATH . 'src' . DS);
  * Environment path
  */
 define('ENV_PATH', getenv('PATH'));
+
+/**
+ * Upload dir
+ */
+define('UPLOAD_PATH', ROOT . DS . 'upload' . DS);

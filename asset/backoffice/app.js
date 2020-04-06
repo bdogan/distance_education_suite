@@ -21,3 +21,11 @@ $('.toast')
         delay: 4000
     })
     .toast('show');
+
+/**
+ * Password change
+ */
+$("button[data-role='change_password']").on('click', function () {
+    $('.password-container').show().find('input').removeAttr('disabled');
+    $(this).remove();
+});
