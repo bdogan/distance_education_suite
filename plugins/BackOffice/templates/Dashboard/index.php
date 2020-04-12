@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col">
         <div class="jumbotron">
-            <h1 class="display-4">Distance Learning Suite</h1>
+            <h1 class="display-4">Uzaktan Eğitim Merkezi</h1>
             <p class="lead">Bu sistem; uzaktan eğitim vermek isteyenleri öğrencilerle buluşturulan bir platformdur. Bazı bölümler yapım aşamasında olabilir. En yakın zamanda eklenecektir.</p>
             <hr class="my-4">
             <p>Lütfen öneri veya şikayetlerinizi bize bildiriniz. Ekibimiz en kısa zamanda size dönecektir.</p>

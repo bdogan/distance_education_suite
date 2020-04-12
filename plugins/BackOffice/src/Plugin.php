@@ -49,7 +49,13 @@ class Plugin extends BasePlugin
                 'bo_logout' => [ '/users/logout', [ 'controller' => 'Users', 'action' => 'logout' ] ],
                 'bo_profile' => [ '/profile', [ 'controller' => 'Users', 'action' => 'profile' ] ],
                 'bo_profile_edit' => [ '/profile/edit', [ 'controller' => 'Users', 'action' => 'edit_profile' ] ],
-                'bo_change_password' => [ '/profile/change_password', [ 'controller' => 'Users', 'action' => 'change_password' ] ]
+                'bo_change_password' => [ '/profile/change_password', [ 'controller' => 'Users', 'action' => 'change_password' ] ],
+
+                // Connected apps
+                'bo_connected_apps' => [ '/connected_apps', [ 'controller' => 'ConnectedApps', 'action' => 'index' ] ],
+                'bo_app_connect' => [ '/connected_apps/{alias}/connect', [ 'controller' => 'ConnectedApps', 'action' => 'connect' ], [ 'pass' => [ 'alias' ] ] ],
+                'bo_app_callback' => [ '/connected_apps/{alias}/callback', [ 'controller' => 'ConnectedApps', 'action' => 'callback' ], [ 'pass' => [ 'alias' ] ] ],
+                'bo_app_disconnect' => [ '/connected_apps/{alias}/disconnect', [ 'controller' => 'ConnectedApps', 'action' => 'disconnect' ], [ 'pass' => [ 'alias' ] ] ]
             ]
 
         ];
@@ -210,7 +216,7 @@ class Plugin extends BasePlugin
 
                 // Encrypted Cookie
                 $builder->registerMiddleware('encrypt_cookie', new EncryptedCookieMiddleware(
-                    [ 'CookieAuth' ],
+                    [ 'admin_auth_cookie' ],
                     Configure::readOrFail('Security.cookieKey')
                 ));
                 $builder->applyMiddleware('encrypt_cookie');

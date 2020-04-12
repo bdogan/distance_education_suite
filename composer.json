@@ -10,11 +10,14 @@
         "cakephp/cakephp": "^4.0",
         "cakephp/migrations": "^3.0",
         "cakephp/plugin-installer": "^1.2",
+        "league/oauth2-client": "^2.4",
         "markstory/asset_compress": "^4.0",
         "mobiledetect/mobiledetectlib": "^2.8",
         "natxet/cssmin": "^3.0",
         "patchwork/jsqueeze": "^2.0",
-        "scssphp/scssphp": "^1.0"
+        "scssphp/scssphp": "^1.0",
+        "vimeo/vimeo-api": "^3.0",
+        "ext-json": "*"
     },
     "require-dev": {
         "cakephp/bake": "^2.0.3",

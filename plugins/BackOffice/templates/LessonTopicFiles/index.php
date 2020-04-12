@@ -6,6 +6,10 @@
  */
 
 $this->Breadcrumbs->add(
+    __('Dashboard'),
+    [ '_name' => 'bo_home' ]
+);
+$this->Breadcrumbs->add(
     __('List Lesson Topics'),
     [ '_name' => 'bo_lesson_topics' ]
 );

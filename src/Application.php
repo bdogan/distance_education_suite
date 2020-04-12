@@ -16,14 +16,19 @@ declare(strict_types=1);
  */
 namespace App;
 
+use App\Lib\AuthenticationServiceProvider;
+use Authentication\Middleware\AuthenticationMiddleware;
 use BackOffice\Plugin;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
+use Cake\Http\Middleware\CsrfProtectionMiddleware;
+use Cake\Http\Middleware\EncryptedCookieMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Cake\Routing\RouteBuilder;
 
 /**
  * Application setup class.
@@ -64,6 +69,9 @@ class Application extends BaseApplication
         // Load more plugins here
         $this->addPlugin('AssetCompress');
 
+        // Add authentication plugin
+        $this->addPlugin(\Authentication\Plugin::class);
+
     }
 
     /**
@@ -94,6 +102,33 @@ class Application extends BaseApplication
 
         return $middlewareQueue;
     }
+
+    public function routes( RouteBuilder $routes ): void
+    {
+        $routes->scope(
+            '/',
+            function (RouteBuilder $builder) {
+
+                // Encrypted Cookie
+                $builder->registerMiddleware('encrypt_cookie', new EncryptedCookieMiddleware(
+                    [ 'auth_cookie' ],
+                    Configure::readOrFail('Security.cookieKey')
+                ));
+                $builder->applyMiddleware('encrypt_cookie');
+
+                // Csrf
+                $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware());
+                $builder->applyMiddleware('csrf');
+
+                // Authentication middleware
+                $builder->registerMiddleware('auth', new AuthenticationMiddleware(new AuthenticationServiceProvider([ 'login' ])));
+                $builder->applyMiddleware('auth');
+
+                $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+            }
+        );
+    }
+
 
     /**
      * Bootrapping for CLI application.

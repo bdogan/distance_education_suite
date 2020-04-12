@@ -3,6 +3,14 @@
  * @var \Backoffice\View\BackOfficeView $this
  * @var \App\Model\Entity\LessonTopic[]|\Cake\Collection\CollectionInterface $lessonTopics
  */
+
+$this->Breadcrumbs->add(
+    __('Dashboard'),
+    [ '_name' => 'bo_home' ]
+);
+$this->Breadcrumbs->add(
+    __('Lesson Topics')
+);
 ?>
 <div class="row bo-index lessonTopics">
     <?php if (!$lessonTopics->count()): ?>

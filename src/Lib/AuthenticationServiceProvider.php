@@ -1,6 +1,6 @@
 <?php
 
-namespace BackOffice\Lib;
+namespace App\Lib;
 
 use Authentication\AuthenticationService;
 use Authentication\AuthenticationServiceInterface;
@@ -33,7 +33,7 @@ class AuthenticationServiceProvider implements AuthenticationServiceProviderInte
      */
     public function getAuthenticationService( ServerRequestInterface $request ): AuthenticationServiceInterface
     {
-        $loginUrl = Router::url($this->loginRoute + [ 'plugin' => 'BackOffice' ]);
+        $loginUrl = Router::url($this->loginRoute);
 
         $service = new AuthenticationService();
 
@@ -43,24 +43,24 @@ class AuthenticationServiceProvider implements AuthenticationServiceProviderInte
         ]);
 
         $fields = [
-            'username' => 'email',
-            'password' => 'password'
+            'username' => 'tc_kimlik',
+            'password' => 'user.password'
         ];
 
         // Loads the authenticators
         $service->loadAuthenticator('Authentication.Session', [
-            'sessionKey' => 'admin_auth'
+            'sessionKey' => 'auth'
         ]);
         $service->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
             'loginUrl' => $loginUrl
         ]);
-        $service->loadAuthenticator('Authentication.Cookie',[
+        $service->loadAuthenticator('Authentication.Cookie', [
             'rememberMeField' => 'remember_me',
             'fields' => $fields,
             'loginUrl' => $loginUrl,
             'cookie' => [
-                'name' => 'admin_auth_cookie'
+                'name' => 'auth_cookie'
             ]
         ]);
 
@@ -69,11 +69,12 @@ class AuthenticationServiceProvider implements AuthenticationServiceProviderInte
             'fields' => $fields,
             'resolver' => [
                 'className' => 'Authentication.Orm',
-                'userModel' => 'Users',
+                'userModel' => 'Students',
                 'finder' => 'admins'
             ]
         ]);
 
         return $service;
     }
+
 }

@@ -53,6 +53,8 @@
                         <a class="dropdown-item" href="<?= $this->Url->build([ '_name' => 'bo_profile' ]); ?>"><?= $this->BackOffice->icon('account_circle', 'md-18') ?> Hesabım</a>
                         <a class="dropdown-item" href="<?= $this->Url->build([ '_name' => 'bo_change_password' ]); ?>"><?= $this->BackOffice->icon('lock', 'md-18') ?> Şifre Değiştir</a>
                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?= $this->Url->build([ '_name' => 'bo_connected_apps' ]); ?>"><?= $this->BackOffice->icon('apps', 'md-18') ?> Bağlı Uygulamalar</a>
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="<?= $this->Url->build([ '_name' => 'bo_logout' ]); ?>"><?= $this->BackOffice->icon('exit_to_app', 'md-18') ?> Çıkış</a>
                     </div>
                 </li>
