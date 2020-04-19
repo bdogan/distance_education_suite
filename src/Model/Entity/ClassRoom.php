@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
- * @property \App\Model\Entity\LessonSubject[] $lesson_subjects
+ * @property \App\Model\Entity\LessonTopic[] $lesson_subjects
  * @property \App\Model\Entity\Student[] $students
  */
 class ClassRoom extends Entity

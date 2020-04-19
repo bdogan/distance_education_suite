@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $this->fetch('title')?></title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <script>const BO = JSON.parse(atob("<?php echo base64_encode(json_encode([ 'PREFIX' => $this->BackOffice->prefix() ])); ?>"));</script>
     <?= $this->AssetCompress->css('BackOffice.backoffice_style.css'); ?>
     <?= $this->AssetCompress->script('BackOffice.backoffice_app.js', [ 'defer' => true ]); ?>
 </head>

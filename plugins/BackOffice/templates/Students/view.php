@@ -5,6 +5,10 @@
  */
 
 $this->Breadcrumbs->add(
+    __('Dashboard'),
+    [ '_name' => 'bo_home' ]
+);
+$this->Breadcrumbs->add(
     __('List Students'),
     [ 'action' => 'index' ]
 );

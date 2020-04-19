@@ -28,48 +28,28 @@ use Cake\View\Exception\MissingTemplateException;
  * This controller will render views from templates/Pages/
  *
  * @link https://book.cakephp.org/4/en/controllers/pages-controller.html
+ *
+ * @property \App\Model\Table\LessonTopicsTable $LessonTopics
  */
 class PagesController extends AppController
 {
+
     /**
-     * Displays a view
-     *
-     * @param array ...$path Path segments.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Http\Exception\ForbiddenException When a directory traversal attempt.
-     * @throws \Cake\View\Exception\MissingTemplateException When the view file could not
-     *   be found and in debug mode.
-     * @throws \Cake\Http\Exception\NotFoundException When the view file could not
-     *   be found and not in debug mode.
-     * @throws \Cake\View\Exception\MissingTemplateException In debug mode.
+     * @var string
      */
-    public function display(...$path): ?Response
+    public $modelClass = 'LessonTopics';
+
+    /**
+     * Home
+     */
+    public function home()
     {
-        if (!$path) {
-            return $this->redirect('/');
-        }
-        if (in_array('..', $path, true) || in_array('.', $path, true)) {
-            throw new ForbiddenException();
-        }
-        $page = $subpage = null;
+        /** @var \App\Model\Entity\ClassRoom $classRoom */
+        $classRoom = $this->Authentication->getIdentityData('class_room');
 
-        if (!empty($path[0])) {
-            $page = $path[0];
-        }
-        if (!empty($path[1])) {
-            $subpage = $path[1];
-        }
-        $this->set(compact('page', 'subpage'));
+        $lessonTopics = $this->LessonTopics->find()
+            ->where([ 'class_room_id' => $classRoom->id ]);
 
-        try {
-            return $this->render(implode('/', $path));
-        } catch (MissingTemplateException $exception) {
-            if (Configure::read('debug')) {
-                throw $exception;
-            }
-            throw new NotFoundException();
-        }
-
-        return $this->render();
+        $this->set(compact('lessonTopics', 'classRoom'));
     }
 }

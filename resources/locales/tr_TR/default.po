@@ -416,3 +416,64 @@ msgstr "Profili Düzenle"
 msgid "Giriş"
 msgstr "Giriş"
 
+#: plugins/BackOffice/templates/LessonTopicVideos/add.php:21
+#: plugins/BackOffice/templates/LessonTopicVideos/add.php:32
+msgid "List Lesson Topic Videos"
+msgstr "Ders Videoları Listesi"
+
+msgid "List Lesson Topic Video"
+msgstr "Ders Videoları Listesi"
+
+
+#: plugins/BackOffice/templates/LessonTopicVideos/add.php:25
+#: plugins/BackOffice/templates/LessonTopicVideos/add.php:38
+msgid "Add Lesson Topic Video"
+msgstr "Ders Videosu Ekle"
+
+msgid "Edit Lesson Topic Video"
+msgstr "Ders Videosu Düzenle"
+
+msgid "Delete Lesson Topic Video"
+msgstr "Ders Videosu Sil"
+
+msgid "New Lesson Topic Video"
+msgstr "Yeni Ders Videosu"
+
+msgid "Lesson Topic Videos"
+msgstr "Ders Videoları"
+
+msgid "App"
+msgstr "Uygulama"
+
+msgid "Thumbnail"
+msgstr "Fotoğraf"
+
+msgid "Duration"
+msgstr "Süre"
+
+msgid "Video Id"
+msgstr "Video No"
+
+msgid "Videos ({0})"
+msgstr "Videolar ({0})"
+
+#: plugins/BackOffice/src/Controller/LessonTopicVideosController.php:77
+#: plugins/BackOffice/src/Controller/LessonTopicVideosController.php:105
+msgid "The lesson topic video has been saved."
+msgstr "Ders videosu kaydedildi"
+
+#: plugins/BackOffice/src/Controller/LessonTopicVideosController.php:81
+#: plugins/BackOffice/src/Controller/LessonTopicVideosController.php:109
+msgid "The lesson topic video could not be saved. Please, try again."
+msgstr "Ders videosu kaydedilemedi. Lütfen tekrar deneyin."
+
+#: plugins/BackOffice/src/Controller/LessonTopicVideosController.php:128
+msgid "The lesson topic video has been deleted."
+msgstr "Ders videosu başarıyla silindi."
+
+#: plugins/BackOffice/src/Controller/LessonTopicVideosController.php:130
+msgid "The lesson topic video could not be deleted. Please, try again."
+msgstr "Ders videosu silinemedi. Lütfen tekrar deneyin."
+
+msgid "ClassRooms Name"
+msgstr "Sınıf"

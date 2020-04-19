@@ -57,6 +57,9 @@ class LessonTopicsTable extends Table
         $this->hasMany('LessonTopicFiles', [
             'foreignKey' => 'lesson_topic_id',
         ]);
+        $this->hasMany('LessonTopicVideos', [
+            'foreignKey' => 'lesson_topic_id',
+        ]);
     }
 
     /**

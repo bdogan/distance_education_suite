@@ -44,7 +44,7 @@ class AuthenticationServiceProvider implements AuthenticationServiceProviderInte
 
         $fields = [
             'username' => 'tc_kimlik',
-            'password' => 'user.password'
+            'password' => 'password'
         ];
 
         // Loads the authenticators
@@ -70,7 +70,7 @@ class AuthenticationServiceProvider implements AuthenticationServiceProviderInte
             'resolver' => [
                 'className' => 'Authentication.Orm',
                 'userModel' => 'Students',
-                'finder' => 'admins'
+                'finder' => 'active'
             ]
         ]);
 

@@ -5,6 +5,10 @@
  */
 
 $this->Breadcrumbs->add(
+    __('Dashboard'),
+    [ '_name' => 'bo_home' ]
+);
+$this->Breadcrumbs->add(
     __('List Lesson Topics'),
     [ 'action' => 'index' ]
 );
@@ -12,7 +16,6 @@ $this->Breadcrumbs->add(
     h($lessonTopic->lesson) . ' - ' . h($lessonTopic->subject)
 );
 ?>
-
 <div class="row">
     <aside class="col-md-3">
         <div class="list-group">
@@ -26,6 +29,7 @@ $this->Breadcrumbs->add(
                 <?= $this->Html->link(__('List Lesson Topic'), [ 'action' => 'index' ], [ 'class' => 'list-group-item list-group-item-action' ]) ?>
                 <?= $this->Html->link(__('New Lesson Topic'), ['action' => 'add'], ['class' => 'list-group-item list-group-item-action']) ?>
                 <?= $this->Html->link(__('Files ({0})', count($lessonTopic->lesson_topic_files)), [ '_name' => 'bo_lesson_topic_files', 'lesson_topic_id' => $lessonTopic->id ], [ 'class' => 'list-group-item list-group-item-action' ]) ?>
+                <?= $this->Html->link(__('Videos ({0})', count($lessonTopic->lesson_topic_videos)), [ '_name' => 'bo_lesson_topic_videos', 'lesson_topic_id' => $lessonTopic->id ], [ 'class' => 'list-group-item list-group-item-action' ]) ?>
             </div>
     </aside>
     <div class="col mt-2 mt-md-0">

@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace App\Model\Table;
 
 use App\Model\Entity\Student;
+use App\Model\Entity\User;
 use Cake\Event\EventInterface;
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -114,5 +116,16 @@ class StudentsTable extends Table
         $rules->add($rules->existsIn(['class_room_id'], 'ClassRooms'));
 
         return $rules;
+    }
+
+    /**
+     * @param \Cake\ORM\Query $query
+     * @param array $options
+     *
+     * @return \Cake\ORM\Query
+     */
+    public function findActive(Query $query, array $options = [])
+    {
+        return $query->contain([ 'Users', 'ClassRooms' ])->where([ 'Users.type IN' => User::USER, 'Users.is_active' => true ]);
     }
 }

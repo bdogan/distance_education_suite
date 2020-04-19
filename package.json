@@ -20,9 +20,12 @@
   },
   "homepage": "https://github.com/bdogan/distance_education_suite#readme",
   "dependencies": {
+    "@vimeo/player": "^2.11.0",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
-    "popper.js": "^1.16.1"
+    "moment": "^2.24.0",
+    "popper.js": "^1.16.1",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
     "sass": "^1.26.3"

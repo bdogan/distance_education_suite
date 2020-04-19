@@ -55,6 +55,7 @@ $this->Breadcrumbs->add(
                         <td><?= h($lessonTopic->created) ?></td>
                         <td class="actions">
                             <div class="btn-group btn-group-sm" role="group">
+                                <?= $this->Html->link($this->BackOffice->icon('videocam', 'md-16'), [ '_name' => 'bo_lesson_topic_videos', 'lesson_topic_id' => $lessonTopic->id ], [ 'escape' => false, 'class' => 'btn btn-dark', 'title' => 'Videolar', 'data-toggle' => 'tooltip' ]) ?>
                                 <?= $this->Html->link($this->BackOffice->icon('file_copy', 'md-16'), [ '_name' => 'bo_lesson_topic_files', 'lesson_topic_id' => $lessonTopic->id ], [ 'escape' => false, 'class' => 'btn btn-dark', 'title' => 'Dosyalar', 'data-toggle' => 'tooltip' ]) ?>
                                 <?= $this->Html->link($this->BackOffice->icon('launch', 'md-16'), ['action' => 'view', $lessonTopic->id], [ 'escape' => false, 'class' => 'btn btn-dark', 'title' => 'Göster', 'data-toggle' => 'tooltip' ]) ?>
                                 <?= $this->Html->link($this->BackOffice->icon('create', 'md-16'), ['action' => 'edit', $lessonTopic->id], [ 'escape' => false, 'class' => 'btn btn-dark', 'title' => 'Düzenle', 'data-toggle' => 'tooltip' ]) ?>

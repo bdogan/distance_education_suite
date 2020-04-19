@@ -121,10 +121,14 @@ class Application extends BaseApplication
                 $builder->applyMiddleware('csrf');
 
                 // Authentication middleware
-                $builder->registerMiddleware('auth', new AuthenticationMiddleware(new AuthenticationServiceProvider([ 'login' ])));
+                $builder->registerMiddleware('auth', new AuthenticationMiddleware(new AuthenticationServiceProvider([ 'controller' => 'Students', 'action' => 'login' ])));
                 $builder->applyMiddleware('auth');
 
-                $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+                $builder->connect('/', ['controller' => 'Pages', 'action' => 'home']);
+                $builder->connect('/students/login', ['controller' => 'Students', 'action' => 'login']);
+                $builder->connect('/students/logout', ['controller' => 'Students', 'action' => 'logout']);
+                $builder->connect('/lesson_topic/{id}/view', [ 'controller' => 'LessonTopics', 'action' => 'view' ], [ 'pass' => [ 'id' ] ]);
+                $builder->connect('/lesson_topic/{lessonTopicId}/file/{id}', [ 'controller' => 'LessonTopicFiles', 'action' => 'show' ], [ 'pass' => [ 'lessonTopicId', 'id' ] ]);
             }
         );
     }

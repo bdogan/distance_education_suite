@@ -119,7 +119,7 @@ class ConnectedAppsTable extends Table
      *
      * @return \Cake\ORM\Query
      */
-    public function findAll( Query $query, array $options ): Query
+    public function findAll( Query $query, array $options = [] ): Query
     {
         $apps = new AppCollection();
         $query = parent::findAll($query, $options);
@@ -134,6 +134,15 @@ class ConnectedAppsTable extends Table
             return $app;
         });
 
+        // Alias
+        if ($alias = Hash::get($options, 'alias')) $results = $results->filter(function($item) use ($alias) { return $item->alias === $alias; });
+
+        // Role option
+        if ($role = Hash::get($options, 'role')) $results = $results->filter(function($item) use ($role) { return in_array($role, $item->roles); });
+
+        // Linked
+        if (Hash::check($options, 'linked') && ($linked = Hash::get($options, 'linked')) === $linked) $results = $results->filter(function($item) use ($linked) { return (!!$item->ConnectedApp === $linked); });
+
         $query->setResult(new ResultSetDecorator($results));
         return $query;
     }
@@ -144,11 +153,15 @@ class ConnectedAppsTable extends Table
      *
      * @return \Cake\ORM\Query
      */
-    public function findFirst( Query $query, array $options)
+    public function findFirst( Query $query, array $options = [] )
     {
-        $alias = Hash::get($options, 'alias');
-        $app = $this->apps()->filter(function ($app) use ($alias) {
-            return $app->alias === $alias;
+        $app = $this->apps()->filter(function ($app) use ($options) {
+            $result = true;
+            // Alias filter
+            if ($alias = Hash::get($options, 'alias')) $result = ($app->alias === $alias);
+            // Role filter
+            if ($result && $role = Hash::get($options, 'role')) $result = in_array($role, $app->roles);
+            return $result;
         })->first();
         if ($app) {
             $connectedApp = $query->where([ 'alias' => Hash::get($options, 'alias') ])->first();

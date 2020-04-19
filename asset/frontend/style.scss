@@ -1,54 +1,14 @@
 
-@import "includes/variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
-/** Header **/
-.bo-navbar.navbar-dark {
-    background-color: $header-bg-color;
-    color: $yiq-text-light;
-
-    .nav-item {
-
-        &.show {
-            background-color: darken($header-bg-color, 5%);
-        }
-
-        .nav-link {
-            color: $header-color;
-            padding: 1rem .75rem;
-        }
-
-        .nav-link:hover,
-        &.show .nav-link {
-            color: darken($header-color, 10%);
-        }
-
-        .dropdown-item i.material-icons-round {
-            margin-right: .5rem;
-        }
-
-    }
-
-
-    .navbar-brand svg {
-        fill: $header-color;
-    }
-
-    .dropdown-menu {
-        margin-top: 2px;
-    }
-}
-@media (min-width: map-get($grid-breakpoints, "md")) {
-    .bo-navbar {
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-}
-
 /** Login **/
-.bo-login-container {
+.fe-login-container {
     display: flex;
     min-height: 100vh;
+
+    img {
+        margin-bottom: 1.25rem;
+    }
 
     .card {
         border-radius: 1rem;
@@ -59,7 +19,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 2.5rem 2rem 4.5rem;
+        padding: 1.5rem 2rem 3.0rem;
     }
 
     .card-text {
@@ -86,7 +46,7 @@
     }
 }
 @media (max-width: map-get($grid-breakpoints, "sm")) {
-    .bo-login-container {
+    .fe-login-container {
         display: block;
         min-height: 100vh;
         .card {
@@ -95,74 +55,6 @@
         }
     }
 }
-
-/** Main container **/
-.bo-main-container {
-    padding-top: 40px;
-}
-
-/** Table **/
-.bo-index {
-    .bo-index-title {
-        color: $gray-800;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
-    table {
-
-        td.actions {
-            text-align: right;
-            width: 112px;
-        }
-
-        thead a {
-            color: inherit;
-
-            &:after {
-                content: ' ';
-                position: relative;
-                left: 5px;
-                border: 6px solid transparent;
-            }
-
-            &.desc:after {
-                top: 12px;
-                border-top-color: $gray-500;
-            }
-
-            &.asc:after {
-                bottom: 12px;
-                border-bottom-color: $gray-500;
-            }
-
-        }
-
-        thead th {
-            border-top: none;
-        }
-    }
-
-}
-
-/** Pagination **/
-.pagination .has-icon {
-    a.page-link {
-        i.material-icons-round {
-            font-weight: 900;
-        }
-        padding: 0.5rem 0.5rem;
-    }
-}
-
-/** Breadcrumb **/
-.breadcrumb {
-    margin-top: -1.5rem;
-}
-
-/** No Data **/
-
 
 /** Material Icons **/
 

@@ -102,4 +102,13 @@ class BackOfficeHelper extends Helper
         if ($class) $_class .= ' ' . $class;
         return $this->Html->tag('i', $name, [ 'class' => $_class ]);
     }
+
+    /**
+     * @return string
+     */
+    public function prefix()
+    {
+        return $this->BackOffice->getConfig('prefix');
+    }
+
 }

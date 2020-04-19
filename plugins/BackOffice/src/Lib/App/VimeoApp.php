@@ -10,6 +10,7 @@ use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 use Cake\Routing\Router;
+use Cake\Utility\Hash;
 use Cake\Utility\Text;
 use Cake\View\Helper\HtmlHelper;
 use Vimeo\Vimeo;
@@ -33,7 +34,7 @@ class VimeoApp extends App
     private $_api;
     public function api()
     {
-        return $this->_api ?? ($this->_api = new Vimeo(Configure::readOrFail('vimeo.clientId'), Configure::readOrFail('vimeo.clientSecret')));
+        return $this->_api ?? ($this->_api = new Vimeo(Configure::readOrFail('vimeo.clientId'), Configure::readOrFail('vimeo.clientSecret'), $this->ConnectedApp ? $this->ConnectedApp->access_token : null));
     }
 
     /**
@@ -89,6 +90,24 @@ class VimeoApp extends App
         }
         Log::write(LOG_ERR, 'Vimeo response unexpected', $tokens);
         throw new \Exception('Beklenmedik bir hata ile karşılaşıldı. Lütfen tekrar deneyin.');
+    }
+
+    /**
+     * @param \Cake\Http\ServerRequest $request
+     * @param \Cake\Http\Response $response
+     *
+     * @return \Cake\Http\Response
+     * @throws \Vimeo\Exceptions\VimeoRequestException
+     */
+    public function videos( ServerRequest $request, Response $response ): Response
+    {
+        $page = intval($request->getQuery('page', 1));
+        $_response = $this->api()->request('/me/videos', [ 'per_page' => 20, 'sort' => 'date', 'direction' => 'asc', 'page' => $page ]);
+
+        $response->getBody()->write(json_encode(Hash::get($_response, 'body.data')));
+        return $response
+            ->withAddedHeader('X-Next-Page', Hash::get($_response, 'body.paging.next') ? $page + 1 : '')
+            ->withType('application/json');
     }
 
 }

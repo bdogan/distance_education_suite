@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace BackOffice\Controller;
 
+use Cake\Http\Exception\NotFoundException;
+
 /**
  * ConnectedApps Controller
  *
@@ -98,5 +100,25 @@ class ConnectedAppsController extends AppController
 
         // Redirect to index
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * @param string $alias
+     * @param string $method
+     */
+    public function call_app_method(string $alias, string $method)
+    {
+        $this->autoRender = false;
+
+        /** @var \BackOffice\Lib\App $app */
+        $app = $this->ConnectedApps->find('all', [ 'alias' => $alias, 'linked' => true ])->firstOrFail();
+
+        // Check application method
+        if (!method_exists($app, $method)) {
+            throw new NotFoundException($method . ' not found on application ' . $alias);
+        }
+
+        // Call application method
+        return $app->{$method}($this->request->withAttribute('controller', $this), $this->response);
     }
 }

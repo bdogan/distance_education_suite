@@ -49,7 +49,7 @@ class App
     /**
      * @var ConnectedApp
      */
-    public $ConnectedApp;
+    public $ConnectedApp = null;
 
     /**
      * Initialize

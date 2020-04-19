@@ -46,7 +46,8 @@ class LessonTopicsController extends AppController
         $lessonTopic = $this->LessonTopics->get($id, [
             'contain' => [
                 'ClassRooms',
-                'LessonTopicFiles' => [ 'fields' => [ 'lesson_topic_id', 'id' ] ]
+                'LessonTopicFiles' => [ 'fields' => [ 'lesson_topic_id', 'id' ] ],
+                'LessonTopicVideos' => [ 'fields' => [ 'lesson_topic_id', 'id' ] ]
             ],
         ]);
 

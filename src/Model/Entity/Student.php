@@ -12,6 +12,7 @@ use Cake\ORM\Entity;
  * @property int $class_room_id
  * @property int $user_id
  * @property string $tc_kimlik
+ * @property string $password
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -38,4 +39,12 @@ class Student extends Entity
         'class_room' => true,
         'user' => true,
     ];
+
+    /**
+     * @return mixed
+     */
+    protected function _getPassword()
+    {
+        return $this->user->get('password');
+    }
 }

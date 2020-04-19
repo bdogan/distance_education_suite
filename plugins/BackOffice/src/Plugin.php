@@ -12,6 +12,7 @@ use Cake\Core\InstanceConfigTrait;
 use Cake\Core\PluginApplicationInterface;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\Middleware\EncryptedCookieMiddleware;
+use Cake\Http\Middleware\HttpsEnforcerMiddleware;
 use Cake\Http\MiddlewareQueue;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
@@ -55,7 +56,8 @@ class Plugin extends BasePlugin
                 'bo_connected_apps' => [ '/connected_apps', [ 'controller' => 'ConnectedApps', 'action' => 'index' ] ],
                 'bo_app_connect' => [ '/connected_apps/{alias}/connect', [ 'controller' => 'ConnectedApps', 'action' => 'connect' ], [ 'pass' => [ 'alias' ] ] ],
                 'bo_app_callback' => [ '/connected_apps/{alias}/callback', [ 'controller' => 'ConnectedApps', 'action' => 'callback' ], [ 'pass' => [ 'alias' ] ] ],
-                'bo_app_disconnect' => [ '/connected_apps/{alias}/disconnect', [ 'controller' => 'ConnectedApps', 'action' => 'disconnect' ], [ 'pass' => [ 'alias' ] ] ]
+                'bo_app_disconnect' => [ '/connected_apps/{alias}/disconnect', [ 'controller' => 'ConnectedApps', 'action' => 'disconnect' ], [ 'pass' => [ 'alias' ] ] ],
+                'bo_connected_app_call' => [ '/connected_app/{alias}/{method}', [ 'controller' => 'ConnectedApps', 'action' => 'call_app_method' ], [ 'pass' => [ 'alias', 'method' ] ] ]
             ]
 
         ];
@@ -71,6 +73,14 @@ class Plugin extends BasePlugin
             'routes' => [
                 'singular' => 'file',
                 'plural' => 'files'
+            ]
+        ]);
+        $this->addCrud('lesson_topic_videos', [
+            'prepend' => '/lesson_topics/{lesson_topic_id}',
+            'pass' => [ 'lesson_topic_id' ],
+            'routes' => [
+                'singular' => 'video',
+                'plural' => 'videos'
             ]
         ]);
 
@@ -214,20 +224,31 @@ class Plugin extends BasePlugin
             [ 'path' => $this->getConfig('prefix') ],
             function (RouteBuilder $builder) {
 
+                // Set json ext
+                $builder->setExtensions([ 'json' ]);
+
+                // Https Enforcer
+                $builder->registerMiddleware('bo_https', new HttpsEnforcerMiddleware([
+                    'redirect' => true,
+                    'headers' => [ 'X-Https-Upgrade' => 'true' ],
+                    'disableOnDebug' => true
+                ]));
+                $builder->applyMiddleware('bo_https');
+
                 // Encrypted Cookie
-                $builder->registerMiddleware('encrypt_cookie', new EncryptedCookieMiddleware(
+                $builder->registerMiddleware('bo_encrypt_cookie', new EncryptedCookieMiddleware(
                     [ 'admin_auth_cookie' ],
                     Configure::readOrFail('Security.cookieKey')
                 ));
-                $builder->applyMiddleware('encrypt_cookie');
+                $builder->applyMiddleware('bo_encrypt_cookie');
 
                 // Csrf
-                $builder->registerMiddleware('csrf', new CsrfProtectionMiddleware());
-                $builder->applyMiddleware('csrf');
+                $builder->registerMiddleware('bo_csrf', new CsrfProtectionMiddleware());
+                $builder->applyMiddleware('bo_csrf');
 
                 // Authentication middleware
-                $builder->registerMiddleware('auth', new AuthenticationMiddleware(new AuthenticationServiceProvider($this->getRoute('bo_login'))));
-                $builder->applyMiddleware('auth');
+                $builder->registerMiddleware('bo_auth', new AuthenticationMiddleware(new AuthenticationServiceProvider($this->getRoute('bo_login'))));
+                $builder->applyMiddleware('bo_auth');
 
                 // Set routes
                 $pages = $this->getPages();

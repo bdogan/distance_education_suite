@@ -18,6 +18,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\ClassRoom $class_room
  * @property \App\Model\Entity\LessonTopicFile[] $lesson_topic_files
+ * @property \App\Model\Entity\LessonTopicVideo[] $lesson_topic_videos
  */
 class LessonTopic extends Entity
 {

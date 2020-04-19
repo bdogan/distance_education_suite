@@ -5,6 +5,10 @@
  */
 
 $this->Breadcrumbs->add(
+    __('Dashboard'),
+    [ '_name' => 'bo_home' ]
+);
+$this->Breadcrumbs->add(
     'Sınıflar',
     [ '_name' => 'bo_class_rooms' ]
 );

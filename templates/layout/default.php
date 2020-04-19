@@ -16,7 +16,9 @@
         <?= $this->AssetCompress->script('app.js', [ 'defer' => true ]); ?>
     </head>
     <body>
-        <div class="container-lg bo-main-container">
+        <?= $this->element('navigation'); ?>
+        <div class="container-lg">
+            <?= $this->element('breadcrumbs'); ?>
             <?= $this->Flash->render(); ?>
             <?= $this->fetch('content') ?>
         </div>

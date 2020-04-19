@@ -3,6 +3,14 @@
  * @var \BackOffice\View\BackOfficeView $this
  * @var \Cake\Datasource\EntityInterface[]|\Cake\Collection\CollectionInterface $classRooms
  */
+
+$this->Breadcrumbs->add(
+    __('Dashboard'),
+    [ '_name' => 'bo_home' ]
+);
+$this->Breadcrumbs->add(
+    'Sınıflar'
+);
 ?>
 <div class="row bo-index classRooms">
     <?php if (!$classRooms->count()): ?>

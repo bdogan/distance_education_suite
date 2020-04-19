@@ -24,6 +24,8 @@ use Cake\View\View;
  *
  * @link https://book.cakephp.org/4/en/views.html#the-app-view
  * @property \AssetCompress\View\Helper\AssetCompressHelper $AssetCompress
+ * @property \BackOffice\View\Helper\FormHelper $Form
+ * @property \Authentication\View\Helper\IdentityHelper $Identity
  */
 class AppView extends View
 {
@@ -40,6 +42,7 @@ class AppView extends View
     {
         // Load helpers
         $this->loadHelper('AssetCompress.AssetCompress');
-
+        $this->loadHelper('BackOffice.Form');
+        $this->loadHelper('Authentication.Identity');
     }
 }
