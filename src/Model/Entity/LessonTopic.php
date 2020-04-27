@@ -13,6 +13,8 @@ use Cake\ORM\Entity;
  * @property string $lesson
  * @property string $subject
  * @property string|null $notes
+ * @property int $subject_order
+ * @property int $lesson_order
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
@@ -34,7 +36,9 @@ class LessonTopic extends Entity
     protected $_accessible = [
         'class_room_id' => true,
         'lesson' => true,
+        'lesson_order' => true,
         'subject' => true,
+        'subject_order' => true,
         'notes' => true,
         'created' => true,
         'modified' => true,

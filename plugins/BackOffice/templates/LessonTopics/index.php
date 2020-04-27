@@ -39,7 +39,9 @@ $this->Breadcrumbs->add(
                     <tr>
                         <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('subject') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('subject_order', 'Konu Sırası') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('lesson') ?></th>
+                        <th scope="col"><?= $this->Paginator->sort('lesson_order', 'Ders Sırası') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('ClassRooms.name') ?></th>
                         <th scope="col"><?= $this->Paginator->sort('created') ?></th>
                         <th scope="col" class="actions"></th>
@@ -50,7 +52,9 @@ $this->Breadcrumbs->add(
                     <tr>
                         <td><?= $this->Number->format($lessonTopic->id) ?></td>
                         <td><?= h($lessonTopic->subject) ?></td>
+                        <td><?= h($lessonTopic->subject_order) ?></td>
                         <td><?= h($lessonTopic->lesson) ?></td>
+                        <td><?= h($lessonTopic->lesson_order) ?></td>
                         <td><?= h($lessonTopic->class_room->name) ?></td>
                         <td><?= h($lessonTopic->created) ?></td>
                         <td class="actions">

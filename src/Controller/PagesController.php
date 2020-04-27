@@ -48,7 +48,8 @@ class PagesController extends AppController
         $classRoom = $this->Authentication->getIdentityData('class_room');
 
         $lessonTopics = $this->LessonTopics->find()
-            ->where([ 'class_room_id' => $classRoom->id ]);
+            ->where([ 'class_room_id' => $classRoom->id ])
+            ->order([ 'lesson_order' => 'ASC', 'subject_order' => 'ASC', 'id' => 'DESC' ]);
 
         $this->set(compact('lessonTopics', 'classRoom'));
     }
