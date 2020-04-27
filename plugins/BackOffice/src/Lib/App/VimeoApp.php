@@ -4,8 +4,10 @@ namespace BackOffice\Lib\App;
 
 use App\Model\Entity\ConnectedApp;
 use BackOffice\Lib\App;
+use Cake\Cache\Cache;
 use Cake\Core\Configure;
 use Cake\Http\Exception\BadRequestException;
+use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 use Cake\Log\Log;
@@ -102,11 +104,43 @@ class VimeoApp extends App
     public function videos( ServerRequest $request, Response $response ): Response
     {
         $page = intval($request->getQuery('page', 1));
-        $_response = $this->api()->request('/me/videos', [ 'per_page' => 20, 'sort' => 'date', 'direction' => 'asc', 'page' => $page ]);
+
+        $options = [ 'per_page' => 20, 'sort' => 'date', 'direction' => 'asc', 'page' => $page ];
+        $cacheKey = Text::slug($this->alias . '_' . 'me_videos_' . http_build_query($options));
+        $_response = Cache::read($cacheKey, '_api_call_');
+        if ($_response === null) {
+            $_response = $this->api()->request('/me/videos', $options);
+            Cache::write($cacheKey, $_response, '_api_call_');
+        }
 
         $response->getBody()->write(json_encode(Hash::get($_response, 'body.data')));
         return $response
             ->withAddedHeader('X-Next-Page', Hash::get($_response, 'body.paging.next') ? $page + 1 : '')
+            ->withType('application/json');
+    }
+
+    /**
+     * @param \Cake\Http\ServerRequest $request
+     * @param \Cake\Http\Response $response
+     *
+     * @return \Cake\Http\Response
+     * @throws \Vimeo\Exceptions\VimeoRequestException
+     */
+    public function video( ServerRequest $request, Response $response): Response
+    {
+        /** @var \App\Model\Entity\LessonTopicVideo $video */
+        $video = $request->getAttribute('video');
+        if (!$video) throw new NotFoundException('Video not found!');
+
+        $cacheKey = Text::slug($this->alias . '_' . $video->video_id);
+        $_response = Cache::read($cacheKey, '_api_call_');
+        if ($_response === null) {
+            $_response = $this->api()->request($video->video_id);
+            Cache::write($cacheKey, $_response, '_api_call_');
+        }
+
+        $response->getBody()->write(json_encode(Hash::get($_response, 'body')));
+        return $response
             ->withType('application/json');
     }
 

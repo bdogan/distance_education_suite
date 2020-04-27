@@ -43,7 +43,7 @@ class ConnectedAppsController extends AppController
         $this->autoRender = false;
 
         /** @var \BackOffice\Lib\App $app, */
-        $app = $this->ConnectedApps->find('first', [ 'alias' => $alias ])->firstOrFail();
+        $app = $this->ConnectedApps->find('all', [ 'alias' => $alias ])->firstOrFail();
 
         // Return response
         return $app->connect($this->getRequest(), $this->getResponse());
@@ -60,7 +60,7 @@ class ConnectedAppsController extends AppController
         $this->autoRender = false;
 
         /** @var \BackOffice\Lib\App $app */
-        $app = $this->ConnectedApps->find('first', [ 'alias' => $alias ])->firstOrFail();
+        $app = $this->ConnectedApps->find('all', [ 'alias' => $alias ])->firstOrFail();
 
         // Save
         try {
@@ -89,7 +89,7 @@ class ConnectedAppsController extends AppController
         $this->autoRender = false;
 
         /** @var \BackOffice\Lib\App $app */
-        $app = $this->ConnectedApps->find('first', [ 'alias' => $alias ])->firstOrFail();
+        $app = $this->ConnectedApps->find('all', [ 'alias' => $alias ])->firstOrFail();
 
         // Unlink
         if (!!$app->ConnectedApp && $this->ConnectedApps->delete($app->ConnectedApp)) {

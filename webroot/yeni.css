@@ -1,0 +1,32 @@
+.classbtn {
+	width: 100%;
+	background: #f1f1f1;
+	border: 0px;
+	border-radius: 3px;
+	text-align: left!important;
+	padding: 0px 20px!important;
+	margin-bottom: 1px;
+	color: #717171;
+}
+.classbtn p {
+	padding: 0px;
+	margin: 0px;
+	line-height: 50px;
+	font-weight: bold;
+}
+.dersler {
+	padding: 20px;
+	background: #EFEFEF;
+}
+.dersler ul, .dersler ul li {
+	padding: 0px;
+	margin: 0px;
+	list-style: none;
+}
+.dersler ul li {
+	border-bottom: 1px dashed #dbdbdb;
+}
+.dersler ul li a {
+	padding: 0px 15px;
+	font-size: 14px;
+}

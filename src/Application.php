@@ -129,6 +129,7 @@ class Application extends BaseApplication
                 $builder->connect('/students/logout', ['controller' => 'Students', 'action' => 'logout']);
                 $builder->connect('/lesson_topic/{id}/view', [ 'controller' => 'LessonTopics', 'action' => 'view' ], [ 'pass' => [ 'id' ] ]);
                 $builder->connect('/lesson_topic/{lessonTopicId}/file/{id}', [ 'controller' => 'LessonTopicFiles', 'action' => 'show' ], [ 'pass' => [ 'lessonTopicId', 'id' ] ]);
+                $builder->connect('/lesson_topic/{lessonTopicId}/video/{id}', [ 'controller' => 'LessonTopicVideos', 'action' => 'show' ], [ 'pass' => [ 'lessonTopicId', 'id' ] ]);
             }
         );
     }

@@ -148,32 +148,6 @@ class ConnectedAppsTable extends Table
     }
 
     /**
-     * @param \Cake\ORM\Query $query
-     * @param array $options
-     *
-     * @return \Cake\ORM\Query
-     */
-    public function findFirst( Query $query, array $options = [] )
-    {
-        $app = $this->apps()->filter(function ($app) use ($options) {
-            $result = true;
-            // Alias filter
-            if ($alias = Hash::get($options, 'alias')) $result = ($app->alias === $alias);
-            // Role filter
-            if ($result && $role = Hash::get($options, 'role')) $result = in_array($role, $app->roles);
-            return $result;
-        })->first();
-        if ($app) {
-            $connectedApp = $query->where([ 'alias' => Hash::get($options, 'alias') ])->first();
-            if ($connectedApp) {
-                $app->ConnectedApp = $connectedApp;
-            }
-        }
-        $query->setResult(new ResultSetDecorator([ $app ]));
-        return $query;
-    }
-
-    /**
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *

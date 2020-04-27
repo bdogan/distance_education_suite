@@ -6,7 +6,7 @@
         vimeo(video) {
             return {
                 app_alias: 'vimeo',
-                video_id: video.resource_key,
+                video_id: video.uri,
                 name: video.name,
                 duration: video.duration,
                 thumbnail: video.pictures.sizes[2].link

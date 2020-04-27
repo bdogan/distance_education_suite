@@ -16,11 +16,6 @@
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
             <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link" href="#" role="button">
-                        Sınıflar
-                    </a>
-                </li>
                 <li class="nav-item dropdown ml-sm-0 ml-md-4">
                     <a class="btn btn-light" href="#" role="button" data-toggle="dropdown">
                         <span class="material-icons-round md-18">account_box</span> <?= $this->Identity->get('user.name'); ?>

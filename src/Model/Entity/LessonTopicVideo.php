@@ -6,20 +6,22 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Student Entity
+ * LessonTopicVideo Entity
  *
  * @property int $id
- * @property int $class_room_id
- * @property int $user_id
- * @property string $tc_kimlik
- * @property string $password
+ * @property int $lesson_topic_id
+ * @property string $app_alias
+ * @property string $video_id
+ * @property string $name
+ * @property int $duration
+ * @property string $thumbnail
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime|null $modified
  *
- * @property \App\Model\Entity\ClassRoom $class_room
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\LessonTopic $lesson_topic
+ * @property \App\Model\Entity\Video $video
  */
-class Student extends Entity
+class LessonTopicVideo extends Entity
 {
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -31,20 +33,15 @@ class Student extends Entity
      * @var array
      */
     protected $_accessible = [
-        'class_room_id' => true,
-        'user_id' => true,
-        'tc_kimlik' => true,
+        'lesson_topic_id' => true,
+        'app_alias' => true,
+        'video_id' => true,
+        'name' => true,
+        'duration' => true,
+        'thumbnail' => true,
         'created' => true,
         'modified' => true,
-        'class_room' => true,
-        'user' => true,
+        'lesson_topic' => true,
+        'video' => true,
     ];
-
-    /**
-     * @return mixed
-     */
-    protected function _getPassword()
-    {
-        return !!$this->user ? $this->user->get('password') : null;
-    }
 }

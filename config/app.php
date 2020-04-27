@@ -145,6 +145,14 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKEROUTES_URL', null),
         ],
+
+        '_api_call_' => [
+            'className' => FileEngine::class,
+            'prefix' => 'api_call_',
+            'path' => CACHE . 'api_call' . DS,
+            'serialize' => true,
+            'duration' => '+1 minute'
+        ]
     ],
 
     /*

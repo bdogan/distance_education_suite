@@ -13,6 +13,7 @@
         <title><?php echo $this->fetch('title')?></title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
         <?= $this->AssetCompress->css('style.css'); ?>
+        <?= $this->Html->css('yeni');?>
         <?= $this->AssetCompress->script('app.js', [ 'defer' => true ]); ?>
     </head>
     <body>

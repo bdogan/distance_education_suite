@@ -8,7 +8,13 @@ $("[data-video-id]").each(function () {
 
     switch (appAlias) {
         case 'vimeo':
-            PageVideos.push(new Vimeo.Player(this, { id: videoId }));
+            fetch(videoId)
+                .then(r => r.json())
+                .then(v => {
+                    $(this).children('p').remove();
+                    const player = new Vimeo.Player(this, { url: v.link, responsive: true, texttrack: 'tr' });
+                    PageVideos.push(player);
+                });
             break;
         default:
             alert('Not suitable player found for alias ' + appAlias + '!');
