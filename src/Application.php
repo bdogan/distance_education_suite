@@ -23,6 +23,7 @@ use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
+use Cake\Http\Middleware\BodyParserMiddleware;
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Http\Middleware\EncryptedCookieMiddleware;
 use Cake\Http\MiddlewareQueue;
@@ -109,6 +110,12 @@ class Application extends BaseApplication
             '/',
             function (RouteBuilder $builder) {
 
+                // Body Parser
+                $builder->registerMiddleware('body_parser', new BodyParserMiddleware([
+                    'json' => true
+                ]));
+                $builder->applyMiddleware('body_parser');
+
                 // Encrypted Cookie
                 $builder->registerMiddleware('encrypt_cookie', new EncryptedCookieMiddleware(
                     [ 'auth_cookie' ],
@@ -130,6 +137,8 @@ class Application extends BaseApplication
                 $builder->connect('/lesson_topic/{id}/view', [ 'controller' => 'LessonTopics', 'action' => 'view' ], [ 'pass' => [ 'id' ] ]);
                 $builder->connect('/lesson_topic/{lessonTopicId}/file/{id}', [ 'controller' => 'LessonTopicFiles', 'action' => 'show' ], [ 'pass' => [ 'lessonTopicId', 'id' ] ]);
                 $builder->connect('/lesson_topic/{lessonTopicId}/video/{id}', [ 'controller' => 'LessonTopicVideos', 'action' => 'show' ], [ 'pass' => [ 'lessonTopicId', 'id' ] ]);
+                $builder->connect('/lesson_topic/{lessonTopicId}/video/{id}/logs', [ 'controller' => 'StudentVideoLogs', 'action' => 'read' ], [ 'pass' => [ 'lessonTopicId', 'id' ] ]);
+                $builder->connect('/lesson_topic/{lessonTopicId}/video/{id}/log/{event}', [ 'controller' => 'StudentVideoLogs', 'action' => 'write' ], [ 'pass' => [ 'lessonTopicId', 'id', 'event' ] ]);
             }
         );
     }

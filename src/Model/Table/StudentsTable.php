@@ -16,6 +16,7 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\ClassRoomsTable&\Cake\ORM\Association\BelongsTo $ClassRooms
  * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \StudentVideoLogs&\Cake\ORM\Association\HasMany $StudentVideoLogs
  *
  * @method \App\Model\Entity\Student newEmptyEntity()
  * @method \App\Model\Entity\Student newEntity(array $data, array $options = [])
@@ -59,6 +60,9 @@ class StudentsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
+        ]);
+        $this->hasMany('StudentVideoLogs', [
+            'foreignKey' => 'student_id'
         ]);
     }
 

@@ -33,7 +33,9 @@ $this->Breadcrumbs->add(
                 <?php
                     echo $this->Form->control('class_room_id');
                     echo $this->Form->control('lesson');
+                    echo $this->Form->control('lesson_order');
                     echo $this->Form->control('subject');
+                    echo $this->Form->control('subject_order');
                     echo $this->Form->control('notes');
                 ?>
                 <?= $this->Form->button(__('Submit'), [ 'class' => 'btn btn-primary mt-3' ]) ?>

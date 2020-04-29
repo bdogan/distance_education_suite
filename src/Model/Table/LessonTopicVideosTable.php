@@ -52,6 +52,9 @@ class LessonTopicVideosTable extends Table
             'foreignKey' => 'lesson_topic_id',
             'joinType' => 'INNER',
         ]);
+        $this->hasMany('StudentVideoLogs', [
+            'foreignKey' => 'lesson_topic_video_id'
+        ]);
     }
 
     /**

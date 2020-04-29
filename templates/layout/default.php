@@ -12,6 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?php echo $this->fetch('title')?></title>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+        <script>eval(atob("<?=base64_encode("(function(w){ w.CSRF_TOKEN='" . $this->request->getAttribute('csrfToken') . "'; })(window)")?>"));</script>
         <?= $this->AssetCompress->css('style.css'); ?>
         <?= $this->Html->css('../yeni');?>
         <?= $this->AssetCompress->script('app.js', [ 'defer' => true ]); ?>

@@ -16,43 +16,39 @@
     <div class="col-12">
         <div class="row">
             <div class="<?=$lessonTopic->lesson_topic_files ? 'col-8' : 'col-12' ?>">
-                <ul class="nav nav-tabs mt-3" role="tablist">
-                <?php
-	            $baslik=1;               
-                foreach ($lessonTopic->lesson_topic_videos as $lessonTopicVideo):
-                ?>
-					<li class="nav-item"><a class="nav-link <?php if($baslik=="1"){ echo "active"; } ?>" data-alias="vimeo<?=$baslik;?>" id="vimeo<?=$baslik;?>-tab" data-toggle="tab" href="#vimeo<?=$baslik;?>"><span class="material-icons-round md-18">videocam</span> Video <?=$baslik;?></a></li>              
-                <?php
-	            $baslik++;
-                endforeach;
-                ?>
+                <ul class="nav nav-tabs" role="tablist">
+                    <?php foreach ($lessonTopic->lesson_topic_videos as $index => $lessonTopicVideo): ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $index === 0 ? 'active' : ''?>" data-alias="vimeo" id="video-<?=$index?>-tab" data-toggle="tab" href="#video-<?=$index?>-pane">
+                                <span class="material-icons-round md-18">videocam</span> Video <?=$index + 1?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
                 <div class="tab-content">
-	            <?php $sayfa =1; ?>
-                <?php foreach ($lessonTopic->lesson_topic_videos as $lessonTopicVideo): ?>
-					<div class="tab-pane fade <?php if($sayfa=="1"){ echo "show active"; } ?>" id="vimeo<?=$sayfa;?>" role="tabpanel" style="min-height: 50vh;">
-						<div class="row">
-							<div class="col-md-12">
-		                        <div class="video-container d-flex flex-column justify-content-center" style="min-height: 200px" data-video-id="<?=$this->Url->build([ 'controller' => 'LessonTopicVideos', 'action' => 'show', 'lessonTopicId' => $lessonTopic->id, 'id' => $lessonTopicVideo->id ])?>" data-app="<?=$lessonTopicVideo->app_alias?>">
-		                            <p class="text-primary text-center"><span class="spinner-border spinner-border-sm" role="status"></span>  Lütfen Bekleyin</p>
-		                        </div>
-							</div>
-						</div>
-					</div>
-				<?php $sayfa++; ?>
-                <?php endforeach; ?>
+                    <?php foreach ($lessonTopic->lesson_topic_videos as $index => $lessonTopicVideo): ?>
+                        <div class="tab-pane fade <?= $index === 0 ? 'show active' : ''?>" id="video-<?=$index?>-pane" role="tabpanel" style="min-height: 20vh;">
+                            <div class="row">
+                                <div class="col-md-12 mt-2">
+                                    <div class="video-container d-flex flex-column justify-content-center" style="min-height: 200px; border-radius: 3px; overflow: hidden;" data-info-target="#video-<?=$index?>-info" data-video-id="<?=$this->Url->build([ 'controller' => 'LessonTopicVideos', 'action' => 'show', 'lessonTopicId' => $lessonTopic->id, 'id' => $lessonTopicVideo->id ])?>" data-app="<?=$lessonTopicVideo->app_alias?>">
+                                        <p class="text-primary text-center"><span class="spinner-border spinner-border-sm" role="status"></span>  Lütfen Bekleyin</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-2">
+                                    <div class="alert alert-info fade" role="alert" id="video-<?=$index?>-info">&nbsp;</div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-
 				<?php if (!!$lessonTopic->notes): ?>
-                <div class="card mb-3">
-                    <div class="card-header"><span class="material-icons-round md-18">event_note</span> Ders Notları</div>
-                    <div class="card-body">
-                        <?=$lessonTopic->notes?>
+                    <div class="card mb-3">
+                        <div class="card-header"><span class="material-icons-round md-18">event_note</span> Ders Notları</div>
+                        <div class="card-body">
+                            <?=$lessonTopic->notes?>
+                        </div>
                     </div>
-                </div>
                 <?php endif; ?>
-
-
             </div>
             <div class="col-4">
                 <?php if ($lessonTopic->lesson_topic_files): ?>

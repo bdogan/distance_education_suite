@@ -3,7 +3,14 @@
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
+use Carbon\Carbon;
 
+/**
+ * Class StudentsController
+ *
+ * @package App\Controller
+ * @property \App\Model\Table\StudentsTable $Students;
+ */
 class StudentsController extends AppController
 {
 
@@ -25,6 +32,12 @@ class StudentsController extends AppController
         $result = $this->Authentication->getResult();
         // If the user is logged in send them away.
         if ($result->isValid()) {
+
+            /** @var \App\Model\Entity\Student $student */
+            $student = $this->Authentication->getIdentity()->getOriginalData();
+            $student->user->last_login = Carbon::now();
+            $this->Students->Users->save($student->user);
+
             $target = $this->Authentication->getLoginRedirect() ?? [ 'controller' => 'Pages', 'action' => 'home' ];
             return $this->redirect($target);
         }

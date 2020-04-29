@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace BackOffice\Controller;
 
 use Cake\Event\EventInterface;
+use Carbon\Carbon;
 
 /**
  * Users Controller
@@ -92,6 +93,12 @@ class UsersController extends AppController
         $result = $this->Authentication->getResult();
         // If the user is logged in send them away.
         if ($result->isValid()) {
+
+            /** @var \App\Model\Entity\User $user */
+            $user = $this->Authentication->getIdentity()->getOriginalData();
+            $user->last_login = Carbon::now();
+            $this->Users->save($user);
+
             $target = $this->Authentication->getLoginRedirect() ?? $this->BackOffice->getHomeRoute();
             return $this->redirect($target);
         }
