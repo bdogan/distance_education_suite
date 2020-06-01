@@ -48,7 +48,8 @@
                     videos: null,
                     hasMore: true,
                     page: 1,
-                    loading: false
+                    loading: false,
+                    term: ''
                 },
                 filters: {
                     formatDate: (v) => {
@@ -66,7 +67,7 @@
                     loadVideos() {
                         if (this.loading || !this.hasMore) return;
                         this.loading = true;
-                        fetch(BO.PREFIX + '/connected_app/' + this.alias + '/videos.json' + '?page=' + this.page)
+                        fetch(BO.PREFIX + '/connected_app/' + this.alias + '/videos.json' + '?page=' + this.page + (!!this.term ? '&query=' + encodeURIComponent(this.term) : ''))
                             .then(response => {
                                 this.hasMore = !!response.headers.get("X-Next-Page");
                                 if (this.hasMore) this.page++;
@@ -76,6 +77,12 @@
                                 this.videos = [].concat(this.videos || [], videos.map(v => processors[this.alias](v)));
                                 this.loading = false;
                             });
+                    },
+                    search() {
+                      this.page = 1;
+                      this.hasMore = true;
+                      this.videos = null;
+                      this.loadVideos();
                     },
                     selectVideo(video) {
                         this.$emit('selected.video', video);

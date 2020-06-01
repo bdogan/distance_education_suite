@@ -86,6 +86,16 @@ $this->Breadcrumbs->add(
                     <?php foreach ($apps as $app): ?>
                         <div class="tab-pane fade" id="<?=$app->alias?>" role="tabpanel" style="min-height: 50vh;">
                             <div class="row">
+                                <div class="col col-12 mt-3">
+                                    <div class="input-group mb-3">
+                                        <input v-model="term" v-on:keyup.enter="search()" type="text" placeholder="Ara..." class="form-control"  />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-success" type="button" v-on:click="search()" :disabled="loading">Ara</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div v-for="video of videos" class="col-md-6 col-xl-4 mt-3 d-flex">
                                     <div class="card">
                                         <img style="min-height: 120px;" v-bind:src="video.thumbnail" v-bind:alt="video.name" />
@@ -97,6 +107,11 @@ $this->Breadcrumbs->add(
                                             </p>
                                             <a href="#" class="btn btn-outline-primary" v-on:click="selectVideo(video)">Seç</a>
                                         </div>
+                                    </div>
+                                </div>
+                                <div v-if="!loading && videos !== null && !videos.length" class="col-12 mt-3">
+                                    <div class="alert alert-secondary" role="alert">
+                                        Bulunamadı
                                     </div>
                                 </div>
                                 <div v-if="videos && hasMore" class="col-12 mt-3 text-center">

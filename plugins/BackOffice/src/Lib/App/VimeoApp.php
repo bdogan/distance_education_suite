@@ -104,8 +104,9 @@ class VimeoApp extends App
     public function videos( ServerRequest $request, Response $response ): Response
     {
         $page = intval($request->getQuery('page', 1));
-
+        $query = $request->getQuery('query', null);
         $options = [ 'per_page' => 20, 'sort' => 'date', 'direction' => 'asc', 'page' => $page ];
+        if (!!$query) $options['query'] = $query;
         $cacheKey = Text::slug($this->alias . '_' . 'me_videos_' . http_build_query($options));
         $_response = Cache::read($cacheKey, '_api_call_');
         if ($_response === null) {
